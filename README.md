@@ -21,7 +21,7 @@ git clone https://github.com/yourusername/tempat-wisata-example.git
 ### 2. Create venv
 
 ```bash
-python3 -m venv venv
+python -m venv venv
 ```
 
 ### 2. Install Dependencis on venv
