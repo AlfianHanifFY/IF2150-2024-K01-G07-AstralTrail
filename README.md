@@ -8,13 +8,49 @@
 - [Modules](#modules)
 - [Database Table](#database-table)
 
-## Description
+## How To Run
 
+### 1. Clone the repository
+
+Clone this repository to your local machine:
+
+```bash
+git clone https://github.com/yourusername/tempat-wisata-example.git
+```
+
+### 2. Create venv
+
+```bash
+python3 -m venv venv
+```
+
+### 2. Install Dependencis on venv
+
+#### on mac os:
+
+```bash
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+#### on windows:
+
+```bash
+venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+### 3. Run App
+
+```bash
+cd src
+python main.py
+```
+
+## Description
 
 ## Getting Started
 
-
 ## Modules
-
 
 ## Database Table
