@@ -47,12 +47,10 @@ const dataTempatWisata = [
   },
 ];
 
-// Membuat kartu untuk tempat wisata
 function createCard(tempatWisata) {
   const card = document.createElement("div");
   card.classList.add("card");
 
-  // Membuat elemen header (Edit, Delete)
   const header = document.createElement("div");
   header.classList.add("header");
 
@@ -67,13 +65,11 @@ function createCard(tempatWisata) {
   header.appendChild(deleteButton);
   card.appendChild(header);
 
-  // Menambahkan gambar
   const image = document.createElement("img");
   image.src = tempatWisata.image;
   image.alt = tempatWisata.name;
   card.appendChild(image);
 
-  // Menambahkan judul dan deskripsi
   const title = document.createElement("h1");
   title.textContent = tempatWisata.name;
   card.appendChild(title);
@@ -89,11 +85,10 @@ function createCard(tempatWisata) {
       : tempatWisata.description;
   card.appendChild(description);
 
-  // Tombol See Detail
   const buttonLink = document.createElement("a");
   buttonLink.href = `/tempat-wisata/${tempatWisata.id}`;
   const seeDetailButton = document.createElement("button");
-  seeDetailButton.classList.add("see-detail-button"); // Kelas untuk tombol See Detail
+  seeDetailButton.classList.add("see-detail-button");
   seeDetailButton.textContent = "See Detail";
   buttonLink.appendChild(seeDetailButton);
   card.appendChild(buttonLink);
@@ -101,7 +96,6 @@ function createCard(tempatWisata) {
   return card;
 }
 
-// Menambahkan semua kartu ke dalam container
 const container = document.getElementById("tempat-wisata-cards");
 dataTempatWisata.forEach((tempatWisata) => {
   const card = createCard(tempatWisata);

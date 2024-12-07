@@ -9,10 +9,9 @@ a {
   text-decoration: none;
 }
 .container {
-  padding: 80px 40px;
+  padding: 150px 40px;
 }
 
-/* Gaya grid untuk menampilkan kartu */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
