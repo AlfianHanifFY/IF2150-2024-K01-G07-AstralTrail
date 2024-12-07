@@ -16,7 +16,7 @@
    git clone https://github.com/AlfianHanifFY/IF2150-2024-K01-G07-AstralTrail.git
    ```
 
-### Run Dekstop App
+### Run App
 1. **Navigate to the src/frontend by running the following command in the terminal:**
    ```bash
    cd src/frontend
