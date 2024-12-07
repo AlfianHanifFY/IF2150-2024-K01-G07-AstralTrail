@@ -1,6 +1,9 @@
 const { app, BrowserWindow } = require('electron');
-require("electron-reload")(__dirname);
 const path = require("path");
+
+if (process.env.NODE_ENV === "development") {
+  require("electron-reload")(__dirname);
+}
 
 let mainWindow;
 
@@ -8,7 +11,7 @@ app.on('ready', () => {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    icon: path.join(__dirname, "../../img/Logo-AstralTrail.jpg"),
+    icon: path.join(__dirname, "../../img/Logo-AstralTrail.png"),
     webPreferences: {
       nodeIntegration: true,
     },
