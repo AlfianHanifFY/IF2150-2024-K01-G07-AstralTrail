@@ -8,48 +8,22 @@
 - [Modules](#modules)
 - [Database Table](#database-table)
 
-## How To Run
-
-### 1. Clone the repository
-
-Clone this repository to your local machine:
-
-```bash
-git clone https://github.com/yourusername/tempat-wisata-example.git
-```
-
-### 2. Create venv
-
-```bash
-python -m venv venv
-```
-
-### 2. Install Dependencis on venv
-
-#### on mac os:
-
-```bash
-source venv/bin/activate
-pip install -r requirements.txt
-```
-
-#### on windows:
-
-```bash
-venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-### 3. Run App
-
-```bash
-cd src
-python main.py
-```
-
 ## Description
 
 ## Getting Started
+### Run Dekstop App
+1. **Navigate to the src/frontend by running the following command in the terminal:**
+   ```bash
+   cd src/frontend
+   ```
+2. **Install dependencies:**
+    ```bash
+   npm install
+   ```
+3. **Start the Electron app in development mode:**
+    ```bash
+   npm start
+   ```
 
 ## Modules
 
