@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Tempat Wisata</title>
+    <link rel="stylesheet" href="../../styles/styles.css" />
+    <link rel="stylesheet" href="../../styles/FormTempatWisata.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header Section -->
+      <div class="header">
+        <button
+          id="backButton"
+          class="back-button"
+          onclick="window.location.href='TempatWisata.html'"
+        >
+          <
+        </button>
+        <h1 class="ml-4 text-2xl font-semibold">Add Destination</h1>
+      </div>
+
+      <!-- Form Section -->
+      <form id="tempatWisataForm" class="form">
+        <div class="form-group">
+          <label for="name">
+            Destination <span class="text-red">*</span>
+          </label>
+          <input
+            id="name"
+            type="text"
+            placeholder="Masukkan Nama Tempat Wisata"
+            required
+            class="input"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="country"> Country <span class="text-red">*</span> </label>
+          <input
+            id="country"
+            type="text"
+            placeholder="Masukkan Nama Negara"
+            required
+            class="input"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="city"> City <span class="text-red">*</span> </label>
+          <input
+            id="city"
+            type="text"
+            placeholder="Masukkan Nama Kota"
+            required
+            class="input"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="description">
+            Description <span class="text-red">*</span>
+          </label>
+          <textarea
+            id="description"
+            rows="5"
+            placeholder="Masukkan Deskripsi Tempat Wisata"
+            required
+            class="textarea"
+          ></textarea>
+        </div>
+
+        <!-- Kolom Upload Gambar -->
+        <div class="form-group">
+          <label for="image">
+            Upload Image <span class="text-red">*</span>
+          </label>
+          <div id="dragArea" class="drag-area">
+            <p id="dragText">Drag and Drop, or Click to Upload</p>
+            <input
+              type="file"
+              id="image"
+              accept="image/*"
+              class="input"
+              style="display: none"
+            />
+            <img id="preview" src="" alt="Preview" style="display: none" />
+            <button
+              id="removeImage"
+              class="remove-button"
+              style="display: none"
+            >
+              &times;
+            </button>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button type="button" id="cancelButton" class="button cancel-button">
+            Reset
+          </button>
+          <button type="submit" class="button save-button">Save</button>
+        </div>
+      </form>
+    </div>
+
+    <script src="../../js/tempat-wisata/AddTempatWisata.js"></script>
+  </body>
+</html>
