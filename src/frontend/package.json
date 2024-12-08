@@ -1,16 +1,36 @@
 {
   "name": "frontend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
-    "start": "electron .",
+    "start": "cross-env NODE_ENV=development electron .",
+    "build": "electron-builder",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "build": {
+    "appId": "com.astraltrail.app",
+    "productName": "AstralTrail",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "icon": "../../img/Logo-AstralTrail.ico"
+    },
+    "mac": {
+      "icon": "../../img/Logo-AstralTrail.icns"
+    },
+    "linux": {
+      "icon": "../../img/Logo-AstralTrail.png"
+    }
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "electron": "^33.2.1"
+    "cross-env": "^7.0.3",
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8",
+    "electron-reload": "^2.0.0-alpha.1"
   }
 }
