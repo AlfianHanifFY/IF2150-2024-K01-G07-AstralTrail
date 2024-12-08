@@ -28,3 +28,10 @@ export async function fetchData(url, method, data = null) {
         return { error: error.message };
     }
 }
+// Ini yang penting :D
+
+// Fungsi untuk mengambil data dengan metod GET
+export async function getData(url) {
+    return await fetchData(url, 'GET');
+}
+
