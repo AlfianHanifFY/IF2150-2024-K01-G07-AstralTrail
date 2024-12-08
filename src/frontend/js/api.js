@@ -35,3 +35,8 @@ export async function getData(url) {
     return await fetchData(url, 'GET');
 }
 
+// Fungsi mengirim json pada http request dengan metod POST
+export async function postData(url, data) {
+    return await fetchData(url, 'POST', data);
+}
+
