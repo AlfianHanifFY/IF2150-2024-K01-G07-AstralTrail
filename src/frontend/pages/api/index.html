@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contoh API</title>
+    <link rel="stylesheet" href="../../styles/styles.css" />
+    <link rel="stylesheet" href="../../styles/Navbar.css" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        padding: 0;
+        background-color: #f8f9fa;
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: #ffffff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #007bff;
+        color: white;
+        font-weight: bold;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      tr:hover {
+        background-color: #ddd;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Get Data</h1>
+    <div id="output">
+      <table>
+        <!-- Ini cuman header colom -->
+        <thead>
+          <tr>
+            <th>Nama Tempat Wisata</th>
+            <th>Deskripsi</th>
+            <th>Nama Negara</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+          <!-- Nanti si data masuk sini, lihat id tag nya 'table-body'-->
+        </tbody>
+      </table>
+    </div>
+
+    <button id="addButton">add statis Data</button>
+    <button id="refreshButton">Refresh Page</button>
+
+    <!-- Nah ini yang penting -->
+    <!-- Harus pake tag <script> biar bisa taro logic -->
+    <!-- kenapa pake ini? menurut w ini paling simpel, ga banyak library. cons nya = ga aman :D -->
+    <script type="module">
+      // ini import biasa lah ya, buat dapeting fungsi
+      import { getData, postData } from "../../js/api.js";
+
+      // masukin url yang mau dituju
+      // si url ini bisa di cek di backend/app.py , kalo mau liat isi fungsinya cek di controller
+      const url = "http://127.0.0.1:5000/api/tempat-wisata";
+
+      // nah tadi diatas kan ada tag <div> yang id nya table-body, disini juga kita masukin id yang relevan
+      const tableBody = document.getElementById("table-body");
+
+      // refresh button
+      document
+        .getElementById("refreshButton")
+        .addEventListener("click", loadData);
+
+      // keruwetan dibawah ini, sebenernya cuman buat ngambil data dari database :D
+      // kenapa dibuat fungsi sendiri? biar bisa keupdate2 gitu aja si kayak use state react
+      async function loadData() {
+        try {
+          // satu baris ini penting, isinya tuh ngirim http request metod GET
+          // buat cek harus pake metod apa, cek ke backend/app.py disitu ada metod yang dipake
+          const data = await getData(url);
+
+          // Kalo yang ini buat ngisi tag <div> yang id tadi
+          // variabel data tuh isinya [{}] array of json
+          // * buat fungsi yang returnya ga array ya gaakan array
+          // ikutin aja :D
+          tableBody.innerHTML = data
+            .map(
+              (item) => `
+                <tr>
+                  <td>${item.NamaTempatWisata}</td>
+                  <td>${item.Deskripsi}</td>
+                  <td>${item.NamaNegara}</td>
+                </tr>
+              `
+            )
+            .join("");
+
+          // ini error message
+        } catch (error) {
+          tableBody.innerHTML = `
+            <tr>
+              <td colspan="3">Error: ${error.message}</td>
+            </tr>
+          `;
+        }
+      }
+
+      // selesai :D
+      // ada cara lain buat ngambil data, tp menurut w ini yang simpel
+
+      // yang w buat diatas tuh contoh GET, klo yang dibawah ini contoh POST
+      // kalo POST , kek namanya cuman buat nge post
+
+      // ini keruwetan maksudnya cuman nyari button dengan id = addButton
+      document
+        .getElementById("addButton")
+        .addEventListener("click", async () => {
+          try {
+            // url kek biasa
+            const postUrl = "http://127.0.0.1:5000/api/tempat-wisata";
+
+            // nah ini data yang dipass ke endpoint
+            // klean atur2 pake form buat ngisi data ini
+            const data = {
+              NamaTempatWisata: "Mount Rinjani",
+              NamaNegara: "Indonesia",
+              NamaKota: "Lombok",
+              Deskripsi: "A scenic volcanic trekking experience.",
+              ImagePath: "/images/mount-rinjani.jpg",
+            };
+
+            // ini fungsi buat post
+            const result = await postData(postUrl, data);
+
+            console.log("Server Response:", result);
+
+            // refresh
+            loadData();
+          } catch (error) {
+            console.error("POST Request Error:", error);
+          }
+        });
+    </script>
+  </body>
+</html>
