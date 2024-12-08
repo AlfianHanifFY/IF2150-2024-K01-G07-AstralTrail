@@ -40,3 +40,7 @@ export async function postData(url, data) {
     return await fetchData(url, 'POST', data);
 }
 
+// Fungsi mengirim json pada http request dengan metod PUT
+export async function putData(url, data) {
+    return await fetchData(url, 'PUT', data);
+}
