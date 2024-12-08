@@ -28,6 +28,7 @@ export async function fetchData(url, method, data = null) {
         return { error: error.message };
     }
 }
+
 // Ini yang penting :D
 
 // Fungsi untuk mengambil data dengan metod GET
@@ -43,4 +44,9 @@ export async function postData(url, data) {
 // Fungsi mengirim json pada http request dengan metod PUT
 export async function putData(url, data) {
     return await fetchData(url, 'PUT', data);
+}
+
+// Fungsi untuk mengirim delete request
+export async function deleteData(url) {
+    return await fetchData(url, 'DELETE');
 }
