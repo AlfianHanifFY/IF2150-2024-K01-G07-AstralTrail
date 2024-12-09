@@ -23,10 +23,9 @@ const dataBucketList = [
       date: "2025-04-10",
       notes: "Make sure to hike up early to catch the sunrise.",
     },
-    // More bucket list items here...
+
   ];
   
-  // Function to create each bucket list card
   function createCard(bucketItem) {
     const card = document.createElement("div");
     card.classList.add("card");
@@ -75,10 +74,8 @@ const dataBucketList = [
     return card;
   }
   
-  // Get the container to append cards to
   const container = document.getElementById("bucket-list-cards");
   
-  // Loop through data and create a card for each bucket list item
   dataBucketList.forEach((bucketItem) => {
     const card = createCard(bucketItem);
     container.appendChild(card);
