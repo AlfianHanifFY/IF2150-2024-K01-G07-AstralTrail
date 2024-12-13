@@ -63,6 +63,10 @@ def delete_bucketList_route(id):
 def get_travelLog_route():
     return get_travelLog()
 
+@app.route('/api/travel-log/<int:id>', methods=['GET'])
+def get_travelLogById_route():
+    return get_travelLogById()
+
 # Create a Travel Log
 @app.route('/api/travel-log', methods=['POST'])
 def create_travelLog_route():
