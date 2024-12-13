@@ -70,6 +70,11 @@
     <button id="addButton">add statis Data</button>
     <button id="refreshButton">Refresh Page</button>
 
+    <form id="uploadForm" enctype="multipart/form-data">
+      <input type="file" name="files[]" multiple required />
+      <button type="submit">Upload</button>
+    </form>
+
     <!-- Nah ini yang penting -->
     <!-- Harus pake tag <script> biar bisa taro logic -->
     <!-- kenapa pake ini? menurut w ini paling simpel, ga banyak library. cons nya = ga aman :D -->
@@ -156,6 +161,35 @@
             loadData();
           } catch (error) {
             console.error("POST Request Error:", error);
+          }
+        });
+
+      document
+        .getElementById("uploadForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault(); // Prevent default form submission
+
+          const form = e.target;
+          const formData = new FormData(form);
+
+          try {
+            const response = await fetch(
+              "http://127.0.0.1:5000/api/upload-image",
+              {
+                method: "POST",
+                body: formData,
+              }
+            );
+
+            const result = await response.json();
+
+            // Show a success message
+            document.getElementById("status").innerText = "Upload successful!";
+          } catch (error) {
+            console.error("Error uploading files:", error);
+
+            // Show an error message
+            document.getElementById("status").innerText = "Upload failed!";
           }
         });
     </script>
