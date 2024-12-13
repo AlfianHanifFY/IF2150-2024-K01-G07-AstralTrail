@@ -3,6 +3,7 @@ from db_config import app, get_db_connection
 from controllers.tempatWisataController import *
 from controllers.bucketListController import *
 from controllers.travelLogController import *
+import os
 
 
 @app.route('/')
@@ -12,6 +13,10 @@ def home():
 @app.route('/api/tempat-wisata', methods=['GET'])
 def get_tempatWisata_route():
     return get_tempatWisata()
+
+@app.route('/api/tempat-wisata/<int:id>', methods=['GET'])
+def get_tempatWisataById_route(id):
+    return get_tempatWisataById(id)
 
 @app.route('/api/tempat-wisata', methods=['POST'])
 def create_tempatWisata_route():
