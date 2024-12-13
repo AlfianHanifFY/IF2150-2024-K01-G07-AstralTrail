@@ -37,6 +37,10 @@ def delete_tempatWisata_route(id):
 def get_bucketList_route():
     return get_bucketList()
 
+@app.route('/api/bucket-list/<int:id>', methods=['GET'])
+def get_bucketListById_route(id):
+    return get_bucketListById(id)
+
 # Create a Bucket List
 @app.route('/api/bucket-list', methods=['POST'])
 def create_bucketList_route():
