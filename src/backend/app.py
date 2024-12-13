@@ -72,5 +72,42 @@ def delete_travelLog_route(id):
     return delete_travelLog(id)
 
 
+
+@app.route("/api/upload-image", methods=["POST"])
+def upload_dataset_mapper_files():
+    # Check if files are in the request
+    if "files[]" not in request.files:
+        return jsonify({"error": "No file part"}), 400
+
+    files = request.files.getlist("files[]")  # Get the list of uploaded files
+    if not files or all(f.filename == "" for f in files):
+        return jsonify({"error": "No selected files"}), 400
+
+    # Allowed extensions for image files
+    allowed_extensions = {"png", "jpg", "jpeg", "gif"}
+
+    # Directory where files will be saved
+    upload_folder = "img/"
+
+    # Ensure the directory exists
+    if not os.path.exists(upload_folder):
+        os.makedirs(upload_folder)
+
+    uploaded_files = []
+    for file in files:
+        if file and file.filename != "":
+            # Extract the file extension and validate
+            file_extension = file.filename.rsplit(".", 1)[-1].lower()
+            if file_extension not in allowed_extensions:
+                return jsonify({"error": f"File {file.filename} is not an allowed image format"}), 400
+
+            # Save the file
+            file_path = f"{upload_folder}{file.filename}"  # Use string for file path
+            file.save(file_path)
+            uploaded_files.append(file.filename)
+
+    return jsonify({"message": "Files uploaded successfully", "uploaded_files": uploaded_files})
+
+
 if __name__ == "__main__":
     app.run(debug=True)
