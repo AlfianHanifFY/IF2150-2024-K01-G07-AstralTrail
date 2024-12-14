@@ -29,8 +29,8 @@ function createCard(tempatWisata) {
   const deleteButton = document.createElement("button");
   deleteButton.innerHTML =
     '<img src="../../../../img/Vector.svg" alt="Delete Icon">';
-  deleteButton.addEventListener("click", () => {
-    deleteData(url);
+  deleteButton.addEventListener("click", async () => {
+    const response =  await deleteData(url);
     window.location.reload();
   });
 

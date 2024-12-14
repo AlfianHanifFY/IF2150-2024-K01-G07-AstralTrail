@@ -1,14 +1,22 @@
-import { postData } from "../api.js";
+import { postData, uploadImage } from "../api.js";
 
 document.getElementById("tempatWisataForm").addEventListener("submit", async function (e) {
   e.preventDefault();
+
+
+  // alfian --
+
+  // ambil image
+  const imageFile = document.getElementById("image").files[0];
+  const imagePath = await uploadImage(imageFile);
+  // don -- alfian
 
   const formData = {
     NamaTempatWisata: document.getElementById("name").value,
     NamaNegara: document.getElementById("country").value,
     NamaKota: document.getElementById("city").value,
     Deskripsi: document.getElementById("description").value,
-    ImagePath: "../../../../img/Sample-Image.jpg",
+    ImagePath: imagePath,
   };
 
   const result = await postData("http://127.0.0.1:5000/api/tempat-wisata", formData)
