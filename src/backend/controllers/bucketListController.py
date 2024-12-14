@@ -14,8 +14,9 @@ def get_bucketList():
                 BucketList.TempatWisataId, 
                 TempatWisata.NamaTempatWisata, 
                 TempatWisata.NamaNegara, 
-                TempatWisata.NamaKota, 
-                BucketList.Tanggal
+                TempatWisata.NamaKota,
+                BucketList.Tanggal,
+                TempatWisata.ImagePath
             FROM BucketList
             JOIN TempatWisata ON BucketList.TempatWisataId = TempatWisata.id
         '''
@@ -30,7 +31,8 @@ def get_bucketList():
                 "NamaTempatWisata": data[2],
                 "NamaNegara": data[3],
                 "NamaKota": data[4],
-                "Tanggal": data[5]
+                "Tanggal": data[5],
+                "ImagePath": data[6]
             }
             for data in bucketLists
         ])

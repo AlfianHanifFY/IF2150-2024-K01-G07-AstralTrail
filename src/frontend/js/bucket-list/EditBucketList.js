@@ -81,7 +81,14 @@ document
     }
   });
 
+
 document.addEventListener("DOMContentLoaded", async () => {
   await loadTempatWisata();
   loadBucketListData();
+});
+
+document
+.getElementById("cancelButton")
+.addEventListener("click", function () {
+  document.getElementById("bucketListForm").reset();
 });

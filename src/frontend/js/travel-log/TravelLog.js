@@ -113,8 +113,8 @@
 
 import { getData, deleteData } from "../api.js";
 
-async function loadTravelLogData() {
-  const data = await getData("http://127.0.0.1:5000/api/travel-log");
+async function loadTravelLogData(value) {
+  const data = await getData(`http://127.0.0.1:5000/api/travel-log?country=${value}`);
   console.log(data);
   const travelLogCards = document.getElementById("travel-log-cards");
   travelLogCards.innerHTML = "";
@@ -195,4 +195,23 @@ function formatDateToDDMMYYYY(date) {
   return `${day}/${month}/${year}`;
 }
 
-loadTravelLogData();
+document.addEventListener("DOMContentLoaded", async () => {
+  const destinationDropdown = document.getElementById("destination");
+  const dataTempatWisata = await getData(
+    "http://127.0.0.1:5000/api/tempat-wisata/negara"
+  );
+
+  // console.log(dataTempatWisata);
+  dataTempatWisata.forEach((tempat) => {
+    const option = document.createElement("option");
+    option.value = tempat;
+    option.textContent = `${tempat}`;
+    destinationDropdown.appendChild(option);
+  });
+
+  destinationDropdown.addEventListener("change", () => {
+    loadTravelLogData(destinationDropdown.value);
+  });
+})
+
+loadTravelLogData("");

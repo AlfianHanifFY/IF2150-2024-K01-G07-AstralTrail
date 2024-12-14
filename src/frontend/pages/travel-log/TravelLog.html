@@ -50,6 +50,15 @@
 
     <!-- Konten Utama -->
     <div class="container">
+      <div class="form-group filter">
+        <label for="destination"
+          >Filter By : <span class="text-red"></span
+        ></label>
+        <select id="destination" required class="input">
+          <option value="" selected>All</option>
+          <!-- Options will be populated dynamically -->
+        </select>
+      </div>
       <div id="travel-log-cards" class="grid"></div>
     </div>
 

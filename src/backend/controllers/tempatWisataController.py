@@ -56,6 +56,30 @@ def get_tempatWisataById(id):
     finally:
         connection.close()
 
+def get_negara():
+    try:
+        connection = get_db_connection()
+        cursor = connection.cursor()
+
+        # Modified query to group by NamaNegara
+        query = '''
+            SELECT TempatWisata.NamaNegara
+            FROM TempatWisata, TravelLog
+            WHERE TempatWisata.id = TravelLog.TempatWisataId
+            GROUP BY TempatWisata.NamaNegara
+            '''
+        cursor.execute(query)
+
+        countries = cursor.fetchall()
+
+        # Return the list of unique countries
+        return jsonify([country[0] for country in countries])
+
+    except Exception as e:
+        return jsonify({"message": str(e)}), 500
+
+    finally:
+        connection.close()
 
 
 # Create Tempat Wisata

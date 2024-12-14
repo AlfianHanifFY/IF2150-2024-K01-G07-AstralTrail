@@ -19,6 +19,10 @@ def get_tempatWisata_route():
 def get_tempatWisataById_route(id):
     return get_tempatWisataById(id)
 
+@app.route('/api/tempat-wisata/negara', methods=['GET'])
+def get_negara_route():
+    return get_negara()
+
 @app.route('/api/tempat-wisata', methods=['POST'])
 def create_tempatWisata_route():
     data = request.get_json()

@@ -198,3 +198,7 @@ a {
 .top-country-container li:last-child {
   border-bottom: none;
 }
+
+.filter {
+  margin-bottom: 50px;
+}

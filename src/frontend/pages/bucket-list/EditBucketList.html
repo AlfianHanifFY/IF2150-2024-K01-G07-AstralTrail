@@ -55,7 +55,9 @@
           id="backButton"
           class="back-button"
           onclick="window.location.href='BucketList.html'"
-        > < </button>
+        >
+          <
+        </button>
         <h1 class="text-h1">Edit BucketList</h1>
       </div>
 
@@ -63,20 +65,38 @@
       <form id="bucketListForm" class="form">
         <!-- Dropdown -->
         <div class="form-group">
-            <label for="destination">Destination <span class="text-red">*</span></label>
-            <select id="destination" required class="input">
-              <option value="" disabled selected>Select From Tempat Wisata</option>
-            </select>
+          <label for="destination"
+            >Destination <span class="text-red">*</span></label
+          >
+          <select id="destination" required class="input">
+            <option value="" disabled selected>
+              Select From Tempat Wisata
+            </option>
+          </select>
         </div>
-        
+
         <div class="form-group">
-            <label for="city">City <span class="text-red"></span></label>
-            <input id="city" type="text" placeholder="auto keisi dari tempat wisata" required class="input" readonly />
+          <label for="city">City <span class="text-red"></span></label>
+          <input
+            id="city"
+            type="text"
+            placeholder="-"
+            required
+            class="input"
+            readonly
+          />
         </div>
-        
+
         <div class="form-group">
-            <label for="country">Country <span class="text-red"></span></label>
-            <input id="country" type="text" placeholder="auto keisi dari tempat wisata" required class="input" readonly />
+          <label for="country">Country <span class="text-red"></span></label>
+          <input
+            id="country"
+            type="text"
+            placeholder="-"
+            required
+            class="input"
+            readonly
+          />
         </div>
 
         <!-- Tanggal -->
