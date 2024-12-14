@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         .then((response) => {
           console.log("Data berhasil ditambahkan:", response);
           alert("Travel Log berhasil ditambahkan!");
-          // window.location.href = `../../pages/bucket-list/BucketList.html`;
+          window.location.href = `../../pages/travel-log/TravelLog.html`;
         })
         .catch((error) => {
           console.error("Terjadi kesalahan:", error);
