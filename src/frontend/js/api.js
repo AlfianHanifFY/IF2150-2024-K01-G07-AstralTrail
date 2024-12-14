@@ -50,3 +50,28 @@ export async function putData(url, data) {
 export async function deleteData(url) {
     return await fetchData(url, 'DELETE');
 }
+
+// Fungsi untuk upload image
+export async function uploadImage(imageFile) {
+ const imageFormData = new FormData();
+  imageFormData.append("files[]", imageFile);
+
+//   if (!imageFile) {
+//     alert("Please select an image!");
+//     return;
+//   }
+
+  const uploadResponse = await fetch(
+    "http://127.0.0.1:5000/api/upload-image",
+    {
+      method: "POST",
+      body: imageFormData,
+    }
+  );
+
+  // bikin path
+  const imagePath = `../../../../img/${imageFile.name}`;
+  return imagePath;
+
+    
+}

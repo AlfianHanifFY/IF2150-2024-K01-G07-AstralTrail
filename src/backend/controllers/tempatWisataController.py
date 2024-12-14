@@ -28,6 +28,34 @@ def get_tempatWisata():
 
     finally:
         connection.close()
+        
+def get_tempatWisataById(id):
+    try:
+        connection = get_db_connection()
+        cursor = connection.cursor()
+
+        query = "SELECT * FROM TempatWisata WHERE id = %s"
+        cursor.execute(query,(id))
+
+        tempatWisata = cursor.fetchall()
+
+        return jsonify([
+                {
+                    "id": data[0],
+                    "NamaTempatWisata": data[1],
+                    "NamaNegara": data[2],
+                    "NamaKota": data[3],
+                    "Deskripsi": data[4],
+                    "ImagePath": data[5]
+                }
+                for data in tempatWisata])
+
+    except Exception as e:
+        return jsonify({"message": str(e)}), 500
+
+    finally:
+        connection.close()
+
 
 
 # Create Tempat Wisata

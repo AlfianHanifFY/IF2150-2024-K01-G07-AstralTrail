@@ -70,6 +70,34 @@
     <button id="addButton">add statis Data</button>
     <button id="refreshButton">Refresh Page</button>
 
+    <h1>YANG INI CAR</h1>
+    <!-- Upload pake foto -->
+    <h1>Form Tempat Wisata</h1>
+    <form id="tempatWisataForm">
+      <label for="nama">Nama:</label><br />
+      <input type="text" id="nama" name="nama" required /><br /><br />
+
+      <label for="negara">Negara:</label><br />
+      <input type="text" id="negara" name="negara" required /><br /><br />
+
+      <label for="kota">Kota:</label><br />
+      <input type="text" id="kota" name="kota" required /><br /><br />
+
+      <label for="deskripsi">Deskripsi:</label><br />
+      <input type="text" id="deskripsi" name="deskripsi" required /><br /><br />
+
+      <label for="image">Image:</label><br />
+      <input
+        type="file"
+        id="image"
+        name="image"
+        accept="image/*"
+        required
+      /><br /><br />
+
+      <button type="submit">Submit</button>
+    </form>
+
     <!-- Nah ini yang penting -->
     <!-- Harus pake tag <script> biar bisa taro logic -->
     <!-- kenapa pake ini? menurut w ini paling simpel, ga banyak library. cons nya = ga aman :D -->
@@ -156,6 +184,95 @@
             loadData();
           } catch (error) {
             console.error("POST Request Error:", error);
+          }
+        });
+
+      document
+        .getElementById("uploadForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault(); // Prevent default form submission
+
+          const form = e.target;
+          const formData = new FormData(form);
+
+          try {
+            const response = await fetch(
+              "http://127.0.0.1:5000/api/upload-image",
+              {
+                method: "POST",
+                body: formData,
+              }
+            );
+
+            const result = await response.json();
+
+            // Show a success message
+            document.getElementById("status").innerText = "Upload successful!";
+          } catch (error) {
+            console.error("Error uploading files:", error);
+
+            // Show an error message
+            document.getElementById("status").innerText = "Upload failed!";
+          }
+        });
+    </script>
+
+    <script type="module">
+      import { postData } from "../../js/api.js";
+      document
+        .getElementById("tempatWisataForm")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const nama = document.getElementById("nama").value;
+          const negara = document.getElementById("negara").value;
+          const kota = document.getElementById("kota").value;
+          const deskripsi = document.getElementById("deskripsi").value;
+          const imageFile = document.getElementById("image").files[0];
+
+          if (!imageFile) {
+            alert("Please select an image!");
+            return;
+          }
+
+          try {
+            // Upload the image
+            const imageFormData = new FormData();
+            imageFormData.append("files[]", imageFile);
+
+            const uploadResponse = await fetch(
+              "http://127.0.0.1:5000/api/upload-image",
+              {
+                method: "POST",
+                body: imageFormData,
+              }
+            );
+
+            if (!uploadResponse.ok) {
+              throw new Error("Failed to upload image");
+            }
+
+            // Construct the image path
+            const imagePath = `../../../../img/${imageFile.name}`;
+
+            // Send the text fields and image path
+            const data = {
+              NamaTempatWisata: nama,
+              NamaNegara: negara,
+              NamaKota: kota,
+              Deskripsi: deskripsi,
+              ImagePath: imagePath,
+            };
+
+            const apiUrl = "http://127.0.0.1:5000/api/tempat-wisata";
+
+            const response = await postData(apiUrl, data);
+            if (!response) {
+              throw new Error("Failed to submit form data");
+            }
+            alert("Form submitted successfully!");
+          } catch (error) {
+            alert(error.message);
           }
         });
     </script>

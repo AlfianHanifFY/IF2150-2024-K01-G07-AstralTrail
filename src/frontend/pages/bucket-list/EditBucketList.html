@@ -24,9 +24,9 @@
 
         <!-- Menu Desktop -->
         <ul class="menu menu-desktop">
-          <li><a href="TempatWisata.html">TempatWisata</a></li>
+          <li><a href="../tempat-wisata/TempatWisata.html">TempatWisata</a></li>
           <li><a href="../travel-log/TravelLog.html">TravelLog</a></li>
-          <li><a href="../bucket-list/BucketList.html">BucketList</a></li>
+          <li><a href="BucketList.html">BucketList</a></li>
           <li><a href="../travel-trail/TravelTrail.html">TravelTrail</a></li>
         </ul>
 
@@ -41,9 +41,9 @@
     <div id="mobileSidebar" class="sidebar">
       <button id="closeButton" class="close-button">×</button>
       <ul class="menu menu-mobile">
-        <li><a href="TempatWisata.html">TempatWisata</a></li>
+        <li><a href="../tempat-wisata/TempatWisata.html">TempatWisata</a></li>
         <li><a href="../travel-log/TravelLog.html">TravelLog</a></li>
-        <li><a href="../bucket-list/BucketList.html">BucketList</a></li>
+        <li><a href="BucketList.html">BucketList</a></li>
         <li><a href="../travel-trail/TravelTrail.html">TravelTrail</a></li>
       </ul>
     </div>
@@ -54,21 +54,18 @@
         <button
           id="backButton"
           class="back-button"
-          onclick="window.location.href='TravelLog.html'"
-        >
-          <
-        </button>
-        <h1 class="text-h1">Add Travel Log </h1>
+          onclick="window.location.href='BucketList.html'"
+        > < </button>
+        <h1 class="text-h1">Edit BucketList</h1>
       </div>
 
       <!-- Form Section -->
-      <form id="travelLogForm" class="form">
+      <form id="bucketListForm" class="form">
         <!-- Dropdown -->
         <div class="form-group">
             <label for="destination">Destination <span class="text-red">*</span></label>
             <select id="destination" required class="input">
               <option value="" disabled selected>Select From Tempat Wisata</option>
-              <!-- Options will be populated dynamically -->
             </select>
         </div>
         
@@ -88,45 +85,7 @@
           <input id="tanggal" type="date" required class="input" />
         </div>
 
-        <div class="form-group">
-          <label for="notes">
-            Notes <span class="text-red">*</span>
-          </label>
-          <textarea
-            id="notes"
-            rows="5"
-            placeholder="Masukkan Notes Perjalananmu"
-            required
-            class="textarea"
-          ></textarea>
-        </div>
-
         <!-- Kolom Upload Gambar -->
-        <div class="form-group">
-          <label for="image">
-            Upload Image <span class="text-red">*</span>
-          </label>
-          <div id="dragArea" class="drag-area">
-            <p id="dragText">Drag and Drop, or Click to Upload</p>
-            <input
-              type="file"
-              id="image"
-              accept="image/*"
-              class="input"
-              style="display: none"
-            />
-            <img id="preview" src="" alt="Preview" style="display: none" />
-            <button
-              id="removeImage"
-              class="remove-button"
-              style="display: none"
-              type="button"
-            >
-              &times;
-            </button>
-          </div>
-        </div>
-
         <div class="button-group">
           <button type="button" id="cancelButton" class="button cancel-button">
             Reset
@@ -136,7 +95,7 @@
       </form>
     </div>
 
-    <script type="module" src="../../js/travel-log/AddTravelLog.js"></script>
+    <script type="module" src="../../js/bucket-list/EditBucketList.js"></script>
     <script src="../../js/Navbar.js"></script>
   </body>
 </html>

@@ -41,6 +41,45 @@ def get_bucketList():
     finally:
         connection.close()
 
+def get_bucketListById(id):
+    try:
+        connection = get_db_connection()
+        cursor = connection.cursor()
+
+        # Join BucketList with TempatWisata to get place information
+        query = '''
+            SELECT 
+                BucketList.id, 
+                BucketList.TempatWisataId, 
+                TempatWisata.NamaTempatWisata, 
+                TempatWisata.NamaNegara, 
+                TempatWisata.NamaKota, 
+                BucketList.Tanggal
+            FROM BucketList
+            JOIN TempatWisata ON BucketList.TempatWisataId = TempatWisata.id
+            WHERE BucketList.id = %s
+        '''
+        cursor.execute(query,id)
+
+        bucketLists = cursor.fetchall()
+
+        return jsonify([
+            {
+                "id": data[0],
+                "TempatWisataId": data[1],
+                "NamaTempatWisata": data[2],
+                "NamaNegara": data[3],
+                "NamaKota": data[4],
+                "Tanggal": data[5]
+            }
+            for data in bucketLists
+        ])
+
+    except Exception as e:
+        return jsonify({"message": str(e)}), 500
+
+    finally:
+        connection.close()
 
 # Create a Bucket List
 def create_bucketList(data):
