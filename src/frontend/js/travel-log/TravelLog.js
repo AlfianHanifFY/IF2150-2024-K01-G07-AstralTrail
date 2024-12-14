@@ -134,7 +134,7 @@ function createCard(travelLogItem) {
   header.classList.add("header");
 
   const editLink = document.createElement("a");
-  editLink.href = `../../pages/bucket-list/EditBucketList.html?id=${travelLogItem.id}`;
+  editLink.href = `../../pages/travel-log/EditTravelLog.html?id=${travelLogItem.id}`;
   editLink.innerHTML = '<img src="../../../../img/Icon.svg" alt="Edit Icon">';
 
   const deleteButton = document.createElement("button");
@@ -178,7 +178,7 @@ function createCard(travelLogItem) {
   card.appendChild(notes);
 
   const buttonLink = document.createElement("a");
-  buttonLink.href = `../../pages/tempat-wisata/DetailTravelLog.html?id=${travelLogItem.id}`;
+  buttonLink.href = `../../pages/travel-log/DetailTravelLog.html?id=${travelLogItem.id}`;
   const seeDetailButton = document.createElement("button");
   seeDetailButton.classList.add("see-detail-button");
   seeDetailButton.textContent = "See Detail";
