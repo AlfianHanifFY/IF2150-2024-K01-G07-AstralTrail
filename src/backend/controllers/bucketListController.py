@@ -57,7 +57,7 @@ def get_bucketListById(id):
                 BucketList.Tanggal
             FROM BucketList
             JOIN TempatWisata ON BucketList.TempatWisataId = TempatWisata.id
-            WHERE id = %s
+            WHERE BucketList.id = %s
         '''
         cursor.execute(query,id)
 

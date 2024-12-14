@@ -3,6 +3,7 @@ from db_config import app, get_db_connection
 from controllers.tempatWisataController import *
 from controllers.bucketListController import *
 from controllers.travelLogController import *
+from controllers.travelTrailController import *
 import os
 
 
@@ -59,13 +60,19 @@ def delete_bucketList_route(id):
     return delete_bucketList(id)
 
 # Get all Travel Log
+# http://127.0.0.1:5000/api/travel-log?country=arab
 @app.route('/api/travel-log', methods=['GET'])
 def get_travelLog_route():
-    return get_travelLog()
+    # Extract the 'country' query parameter from the request
+    country = request.args.get('country')
+    if not country:
+        return get_travelLog()
+    # Call the function to fetch travel logs based on the country
+    return get_travelLogByCountry(country)
 
 @app.route('/api/travel-log/<int:id>', methods=['GET'])
-def get_travelLogById_route():
-    return get_travelLogById()
+def get_travelLogById_route(id):
+    return get_travelLogById(id)
 
 # Create a Travel Log
 @app.route('/api/travel-log', methods=['POST'])
@@ -84,7 +91,9 @@ def update_travelLog_route(id):
 def delete_travelLog_route(id):
     return delete_travelLog(id)
 
-
+@app.route('/api/showStatisticPage', methods=['GET'])
+def get_statistic_route():
+    return showStatisticPage()
 
 @app.route("/api/upload-image", methods=["POST"])
 def upload_dataset_mapper_files():
