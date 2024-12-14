@@ -6,8 +6,6 @@ def get_bucketList():
     try:
         connection = get_db_connection()
         cursor = connection.cursor()
-
-        # Join BucketList with TempatWisata to get place information
         query = '''
             SELECT 
                 BucketList.id, 
@@ -48,7 +46,6 @@ def get_bucketListById(id):
         connection = get_db_connection()
         cursor = connection.cursor()
 
-        # Join BucketList with TempatWisata to get place information
         query = '''
             SELECT 
                 BucketList.id, 
@@ -125,7 +122,6 @@ def update_bucketList(id, data):
         connection = get_db_connection()
         cursor = connection.cursor()
 
-        # Check if the record exists first
         check_query = "SELECT * FROM BucketList WHERE id = %s"
         cursor.execute(check_query, (id,))
         if not cursor.fetchone():
@@ -156,7 +152,7 @@ def delete_bucketList(id):
         connection = get_db_connection()
         cursor = connection.cursor()
 
-        # Check if the record exists first
+
         check_query = "SELECT * FROM BucketList WHERE id = %s"
         cursor.execute(check_query, (id,))
         if not cursor.fetchone():

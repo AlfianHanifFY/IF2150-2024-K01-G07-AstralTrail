@@ -10,11 +10,13 @@ def showStatisticPage():
         # For Overall Graph
         query_TempatWisata = '''
             SELECT 
-                TW.id, TW.NamaTempatWisata, TW.NamaNegara, TW.NamaKota,
-                COUNT(TL.id) AS VisitCount
+                YEAR(TL.Tanggal) AS Year,
+                MONTH(TL.Tanggal) AS Month,
+                COUNT(DISTINCT TL.TempatWisataId) AS PlacesVisited
             FROM TravelLog TL
-            JOIN TempatWisata TW ON TW.id = TL.TempatWisataID 
-            GROUP BY TW.id, TW.NamaTempatWisata, TW.NamaNegara, TW.NamaKota;
+            GROUP BY YEAR(TL.Tanggal), MONTH(TL.Tanggal)
+            ORDER BY Year, Month;
+
         '''
         cursor.execute(query_TempatWisata)
         statTempatWisata = cursor.fetchall()

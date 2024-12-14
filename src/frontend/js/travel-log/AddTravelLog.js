@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     "http://127.0.0.1:5000/api/tempat-wisata"
   );
 
-  // console.log(dataTempatWisata);
+
   dataTempatWisata.forEach((tempat) => {
     const option = document.createElement("option");
     option.value = tempat.id;

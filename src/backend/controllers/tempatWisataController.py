@@ -61,7 +61,6 @@ def get_negara():
         connection = get_db_connection()
         cursor = connection.cursor()
 
-        # Modified query to group by NamaNegara
         query = '''
             SELECT TempatWisata.NamaNegara
             FROM TempatWisata, TravelLog
@@ -72,7 +71,6 @@ def get_negara():
 
         countries = cursor.fetchall()
 
-        # Return the list of unique countries
         return jsonify([country[0] for country in countries])
 
     except Exception as e:
@@ -133,9 +131,9 @@ def update_tempatWisata(id, data):
         connection = get_db_connection()
         cursor = connection.cursor()
 
-        # Check if the record exists first
+
         check_query = "SELECT * FROM TempatWisata WHERE id = %s"
-        cursor.execute(check_query, (id,))
+        cursor.execute(check_query, (id))
         if not cursor.fetchone():
             return jsonify({"message": "Tempat Wisata not found"}), 404
 
@@ -167,14 +165,14 @@ def delete_tempatWisata(id):
         connection = get_db_connection()
         cursor = connection.cursor()
 
-        # Check if the record exists first
+ 
         check_query = "SELECT * FROM TempatWisata WHERE id = %s"
-        cursor.execute(check_query, (id,))
+        cursor.execute(check_query, (id))
         if not cursor.fetchone():
             return jsonify({"message": "Tempat Wisata not found"}), 404
 
         delete_query = "DELETE FROM TempatWisata WHERE id = %s"
-        cursor.execute(delete_query, (id,))
+        cursor.execute(delete_query, (id))
         connection.commit()
 
         return jsonify({"message": "Tempat Wisata deleted successfully"})

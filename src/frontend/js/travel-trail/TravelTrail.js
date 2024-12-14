@@ -28,16 +28,14 @@ document.addEventListener("DOMContentLoaded", async () => {
           {
             label: "Report Snapshot",
             data: lineChartValues,
-            borderColor: "#4a90e2",
+            borderColor: "rgba(75,192,192,1)",
             backgroundColor: "rgba(74, 144, 226, 0.1)",
-            tension: 0.4, 
-            pointRadius: 4,
-            pointHoverRadius: 6,
-            pointBackgroundColor: "#4a90e2",
+            tension: 0.4,
           },
         ],
       },
       options: {
+        responsive: true,
         plugins: {
             title:{
                 display: true,
@@ -57,7 +55,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             },
           },
           legend: {
-            display: false, // Clean look
+            display: false,
           },
         },
         scales: {

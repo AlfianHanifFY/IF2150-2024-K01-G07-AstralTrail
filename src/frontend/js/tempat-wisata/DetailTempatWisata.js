@@ -1,7 +1,6 @@
 import { getData } from "../api.js";
 
 const tempatWisataId = new URLSearchParams(window.location.search).get("id");
-// console.log(tempatWisataId);
 
 async function loadTempatWisataById() {
     const tempatWisataData = await getData(
@@ -21,7 +20,6 @@ async function loadTempatWisataById() {
     locationElement.textContent = `${tempatWisataData[0].NamaKota}, ${tempatWisataData[0].NamaNegara}`;
     descriptionElement.textContent = tempatWisataData[0].Deskripsi;
 
-    // document.getElementById("image").value = tempatWisata[0].ImagePath;
 }
 
 loadTempatWisataById();

@@ -1,7 +1,7 @@
 import { getData } from "../api.js";
 
 const travelLogId = new URLSearchParams(window.location.search).get("id");
-// console.log(tempatWisataId);
+
 
 async function loadTravelLogById() {
   const travelLogData = await getData(
@@ -27,7 +27,6 @@ async function loadTravelLogById() {
   dateElement.textContent = formattedDate;
   descriptionElement.textContent = travelLogData[0].DeskripsiUser;
 
-  // document.getElementById("image").value = tempatWisata[0].ImagePath;
 }
 
 function formatDateToDDMMYYYY(date) {

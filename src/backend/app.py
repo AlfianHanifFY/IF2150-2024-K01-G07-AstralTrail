@@ -64,14 +64,12 @@ def delete_bucketList_route(id):
     return delete_bucketList(id)
 
 # Get all Travel Log
-# http://127.0.0.1:5000/api/travel-log?country=arab
+#  contoh kalo pake param => http://127.0.0.1:5000/api/travel-log?country=arab
 @app.route('/api/travel-log', methods=['GET'])
 def get_travelLog_route():
-    # Extract the 'country' query parameter from the request
     country = request.args.get('country')
     if not country:
         return get_travelLog()
-    # Call the function to fetch travel logs based on the country
     return get_travelLogByCountry(country)
 
 @app.route('/api/travel-log/<int:id>', methods=['GET'])
@@ -100,35 +98,29 @@ def get_statistic_route():
     return showStatisticPage()
 
 @app.route("/api/upload-image", methods=["POST"])
-def upload_dataset_mapper_files():
-    # Check if files are in the request
+def upload_image_route():
     if "files[]" not in request.files:
         return jsonify({"error": "No file part"}), 400
 
-    files = request.files.getlist("files[]")  # Get the list of uploaded files
+    files = request.files.getlist("files[]")
     if not files or all(f.filename == "" for f in files):
         return jsonify({"error": "No selected files"}), 400
 
-    # Allowed extensions for image files
     allowed_extensions = {"png", "jpg", "jpeg", "gif"}
 
-    # Directory where files will be saved
     upload_folder = "img/"
 
-    # Ensure the directory exists
     if not os.path.exists(upload_folder):
         os.makedirs(upload_folder)
 
     uploaded_files = []
     for file in files:
         if file and file.filename != "":
-            # Extract the file extension and validate
             file_extension = file.filename.rsplit(".", 1)[-1].lower()
             if file_extension not in allowed_extensions:
                 return jsonify({"error": f"File {file.filename} is not an allowed image format"}), 400
 
-            # Save the file
-            file_path = f"{upload_folder}{file.filename}"  # Use string for file path
+            file_path = f"{upload_folder}{file.filename}"  
             file.save(file_path)
             uploaded_files.append(file.filename)
 
