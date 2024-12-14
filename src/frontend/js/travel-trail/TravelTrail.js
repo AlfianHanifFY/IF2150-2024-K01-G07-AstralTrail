@@ -1,7 +1,10 @@
+
 import { getData } from "../api.js";
+
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
+
     const data = await getData("http://127.0.0.1:5000/showStatisticPage");
 
     if (data.error) {
@@ -14,8 +17,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Line Chart
     const lineChartCtx = document.getElementById("lineChart").getContext("2d");
-    const lineChartLabels = tempatWisataData.map((item) => item[1]); // NamaTempatWisata
-    const lineChartValues = tempatWisataData.map((item) => item[4]); // VisitCount
+    const lineChartLabels = tempatWisataData.map((item) => item[1]);
+    const lineChartValues = tempatWisataData.map((item) => item[4]);
 
     new Chart(lineChartCtx, {
       type: "line",
@@ -45,8 +48,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Pie Chart
     const pieChartCtx = document.getElementById("pieChart").getContext("2d");
-    const pieChartLabels = negaraData.map((item) => item[1]); // NamaNegara
-    const pieChartValues = negaraData.map((item) => item[2]); // VisitCount
+    const pieChartLabels = negaraData.map((item) => item[1]);
+    const pieChartValues = negaraData.map((item) => item[2]);
 
     new Chart(pieChartCtx, {
       type: "pie",
@@ -70,7 +73,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         maintainAspectRatio: false
       },
     });
-/*
+
     // Country List
     const countryContainer = document.getElementById("countryContainer");
     const countryTitle = document.createElement("h3");
@@ -84,6 +87,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       listItem.textContent = `${country[1]}: ${country[2]} visits`;
       countryList.appendChild(listItem);
     });
+
 
     countryContainer.appendChild(countryList);
 
@@ -102,7 +106,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       topCountryDiv.textContent = `${country[1]}: ${country[2]} visits`;
       topCountryContainer.appendChild(topCountryDiv);
     });
-*/
+
   } catch (error) {
     console.error("Error setting up Travel Trail:", error);
   }
