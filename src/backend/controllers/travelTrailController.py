@@ -14,7 +14,7 @@ def showStatisticPage():
                 COUNT(TL.id) AS VisitCount
             FROM TravelLog TL
             JOIN TempatWisata TW ON TW.id = TL.TempatWisataID 
-            GROUP BY TW.NamaTempatWisata, TW.NamaNegara, TW.NamaKota;
+            GROUP BY TW.id, TW.NamaTempatWisata, TW.NamaNegara, TW.NamaKota;
         '''
         cursor.execute(query_TempatWisata)
         statTempatWisata = cursor.fetchall()
@@ -26,7 +26,7 @@ def showStatisticPage():
                 COUNT(TL.id) AS VisitCount
             FROM TravelLog TL
             JOIN TempatWisata TW ON TW.id = TL.TempatWisataID
-            GROUP BY TW.NamaNegara
+            GROUP BY TW.id, TW.NamaNegara
             ORDER BY COUNT(TL.id);
         '''
 
