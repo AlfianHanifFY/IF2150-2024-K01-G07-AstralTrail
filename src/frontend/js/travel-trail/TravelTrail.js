@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         maintainAspectRatio: false
       },
     });
-
+/*
     // Country List
     const countryContainer = document.getElementById("countryContainer");
     const countryTitle = document.createElement("h3");
@@ -102,6 +102,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       topCountryDiv.textContent = `${country[1]}: ${country[2]} visits`;
       topCountryContainer.appendChild(topCountryDiv);
     });
+*/
   } catch (error) {
     console.error("Error setting up Travel Trail:", error);
   }
