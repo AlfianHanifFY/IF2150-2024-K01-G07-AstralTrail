@@ -1,37 +1,39 @@
 import { postData, uploadImage } from "../api.js";
 
-document.getElementById("tempatWisataForm").addEventListener("submit", async function (e) {
-  e.preventDefault();
+document
+  .getElementById("tempatWisataForm")
+  .addEventListener("submit", async function (e) {
+    e.preventDefault();
 
+    const imageFile = document.getElementById("image").files[0];
 
-  // alfian --
+    if (!imageFile) {
+      alert("Harap unggah gambar sebelum menyimpan form.");
+      return;
+    }
 
-  // ambil image
-  const imageFile = document.getElementById("image").files[0];
-  const imagePath = await uploadImage(imageFile);
-  // don -- alfian
+    try {
+      const imagePath = await uploadImage(imageFile);
 
-  const formData = {
-    NamaTempatWisata: document.getElementById("name").value,
-    NamaNegara: document.getElementById("country").value,
-    NamaKota: document.getElementById("city").value,
-    Deskripsi: document.getElementById("description").value,
-    ImagePath: imagePath,
-  };
+      const formData = {
+        NamaTempatWisata: document.getElementById("name").value,
+        NamaNegara: document.getElementById("country").value,
+        NamaKota: document.getElementById("city").value,
+        Deskripsi: document.getElementById("description").value,
+        ImagePath: imagePath,
+      };
 
-  const result = await postData("http://127.0.0.1:5000/api/tempat-wisata", formData)
-    .then((response) => {
+      const response = await postData(
+        "http://127.0.0.1:5000/api/tempat-wisata",
+        formData
+      );
       console.log("Data berhasil ditambahkan:", response);
       alert("Tempat wisata berhasil ditambahkan!");
-      // window.location.href = `../../pages/tempat-wisata/TempatWisata.html`;
-    })
-    .catch((error) => {
+      window.location.href = `../../pages/tempat-wisata/TempatWisata.html`;
+    } catch (error) {
       console.error("Terjadi kesalahan:", error);
       alert("Terjadi kesalahan saat menambahkan tempat wisata.");
-    });
-
-  // console.log("Form Data:", result);
-
+    }
   });
 
 document.getElementById("cancelButton").addEventListener("click", function () {

@@ -4,16 +4,24 @@ import { getData } from "../api.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
+    const data = await getData("http://127.0.0.1:5000/api/showStatisticPage");
 
-    const data = await getData("http://127.0.0.1:5000/showStatisticPage");
-
-    if (data.error) {
-      console.error("Error fetching TravelTrail data:", data.error);
+    if (!data || data.error) {
+      console.error("Error fetching TravelTrail data:", data.error || "No data");
       return;
     }
 
-    const tempatWisataData = data.TempatWisata;
-    const negaraData = data.Negara;
+    const tempatWisataData = data.TempatWisata || [];
+    const negaraData = data.Negara || [];
+
+    // Log fetched data
+    console.log("Fetched TempatWisata:", tempatWisataData);
+    console.log("Fetched Negara:", negaraData);
+
+    if (!tempatWisataData.length || !negaraData.length) {
+      console.warn("No data available to display.");
+      return;
+    }
 
     // Line Chart
     const lineChartCtx = document.getElementById("lineChart").getContext("2d");
@@ -35,7 +43,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       },
       options: {
         responsive: true,
-        maintainAspectRatio:false,
         plugins: {
           tooltip: {
             callbacks: {
@@ -68,45 +75,16 @@ document.addEventListener("DOMContentLoaded", async () => {
           },
         ],
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false
-      },
     });
 
-    // Country List
-    const countryContainer = document.getElementById("countryContainer");
-    const countryTitle = document.createElement("h3");
-    countryTitle.textContent = "Country";
-    countryContainer.appendChild(countryTitle);
-
-    const countryList = document.createElement("ul");
-
-    negaraData.forEach((country) => {
-      const listItem = document.createElement("li");
-      listItem.textContent = `${country[1]}: ${country[2]} visits`;
-      countryList.appendChild(listItem);
+    // Top 5 List
+    const sortedNegaraData = negaraData.sort((a, b) => b[2] - a[2]);
+    const top5List = document.getElementById("top5List");
+    sortedNegaraData.slice(0, Math.min(5, sortedNegaraData.length)).forEach((item) => {
+      const li = document.createElement("li");
+      li.textContent = `${item[1]}: ${item[2]} visits`;
+      top5List.appendChild(li);
     });
-
-
-    countryContainer.appendChild(countryList);
-
-    // Top Country
-    const topCountryContainer = document.getElementById("topCountryContainer");
-    const topCountryTitle = document.createElement("h3");
-    topCountryTitle.textContent = "Top Country";
-    topCountryContainer.appendChild(topCountryTitle);
-
-    const topCountries = negaraData
-      .sort((a, b) => b[2] - a[2]) // Sort by VisitCount descending
-      .slice(0, 5);
-
-    topCountries.forEach((country) => {
-      const topCountryDiv = document.createElement("div");
-      topCountryDiv.textContent = `${country[1]}: ${country[2]} visits`;
-      topCountryContainer.appendChild(topCountryDiv);
-    });
-
   } catch (error) {
     console.error("Error setting up Travel Trail:", error);
   }
