@@ -128,42 +128,38 @@
 | Form Tempat Wisata | 13523091       | ![form tempat wisata](./docs/form-tempat-wisata.png) |
 | Form Travel Log    | 13523107       | ![form travel log](./docs/form-travel-log.png)       |
 | Form Bucket List   | 13523121       | ![form  bucket list](./docs/form-bucket-list.png)    |
-| Database           | 13523121       | ![database](./docs/database.png)                     |
+| Database           | 13523073       | ![database](./docs/database1.jpg)                    |
+| Database           | 13523073       | ![database](./docs/database2.jpg)                    |
+| Database           | 13523073       | ![database](./docs/database3.jpg)                    |
 
 ## Database Table
-
 The following is a list of the tables that have been implemented:
 
 #### Tempat Wisata Data Table
-
-| **Attribute Name** | **Visibility** (private, public) | **Type** |
-| ------------------ | -------------------------------- | -------- |
-| id                 | private                          | int      |
-| NamaTempatWisata   | private                          | string   |
-| NamaNegara         | private                          | string   |
-| NamaKota           | private                          | string   |
-| Deskripsi          | private                          | string   |
-| Foto               | private                          | jpg      |
+| **Attribute Name**    | **Type**               | **Constraint**                         |
+|-----------------------|------------------------|----------------------------------------|
+| id                    | Int Auto_Increment     | primary key                            |
+| NamaTempatWisata      | varchar(100)           | not null                               |
+| NamaNegara            | varchar(120)           | not null                               |
+| NamaKota              | varchar(120)           | not null                               |
+| Deskripsi             | varchar(120)           |                                        |
+| ImagePath             | varchar(120)           |                                        |
 
 #### Travel Log Data Table
+| **Attribute Name**    | **Type**               | **Constraint**                         |
+|-----------------------|------------------------|----------------------------------------|
+| id                    | int                    | primary key                            |
+| TempatWisataId        | int                    | not null                               |
+| Tanggal               | date                   |                                        |
+| DeskripsiUser         | varchar(1000)          |                                        |
+| ImagePath             | varchar(120)           |                                        |
+| TempatWisataId        | int                    | foreign key references TempatWisata(id)|
 
-| **Attribute Name** | **Visibility** (private, public) | **Type** |
-| ------------------ | -------------------------------- | -------- |
-| id                 | private                          | int      |
-| NamaTempatWisata   | private                          | string   |
-| NamaNegara         | private                          | string   |
-| NamaKota           | private                          | string   |
-| Deskripsi          | private                          | string   |
-| Tanggal            | private                          | date     |
-| Foto               | private                          | jpg      |
 
 #### Bucket List Data Table
-
-| **Attribute Name** | **Visibility** (private, public) | **Type** |
-| ------------------ | -------------------------------- | -------- |
-| id                 | private                          | int      |
-| NamaTempatWisata   | private                          | string   |
-| NamaNegara         | private                          | string   |
-| NamaKota           | private                          | string   |
-| Deskripsi          | private                          | string   |
-| Foto               | private                          | jpg      |
+| **Attribute Name**    | **Type**               | **Constraint**                         |
+|-----------------------|------------------------|----------------------------------------|
+| id                    | int                    | primary key                            |
+| TempatWisataId        | int                    | not null                               |
+| Tanggal               | Date                   |                                        |
+| TempatWisataId        | int                    | foreign key references TempatWisata(id)|

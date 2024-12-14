@@ -49,5 +49,6 @@ def execute_sql_files(directory):
     finally:
         connection.close()
 
+
 models_directory = 'src/backend/models'
 execute_sql_files(models_directory)
