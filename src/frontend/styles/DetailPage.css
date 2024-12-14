@@ -68,6 +68,12 @@
   color: #4b5563;
 }
 
+.date {
+   margin-top: 0px;
+  font-size: 1rem;
+  color: #4b5563;
+}
+
 .description {
   margin-top: 10px;
   font-size: 1rem;

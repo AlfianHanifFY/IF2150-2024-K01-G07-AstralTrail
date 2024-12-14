@@ -1,20 +1,110 @@
-document
-  .getElementById("travelLogForm")
-  .addEventListener("submit", function (e) {
-    e.preventDefault();
+// export const dataTempatWisata = [
+//     { name: "Eiffel Tower", city: "Paris", country: "France" },
+//     { name: "Mount Fuji", city: "Shizuoka", country: "Japan" },
+//     { name: "Statue of Liberty", city: "New York", country: "USA" },
+//   ];
 
-    const formData = {
-      id: Date.now(),
-      name: document.getElementById("name").value,
-      city: document.getElementById("city").value,
-      country: document.getElementById("country").value,
-      date: document.getElementById("date").value,
-      description: document.getElementById("description").value,
-      image: document.getElementById("image").files[0],
-    };
+import { getData, postData } from "../api.js";
 
-    console.log("Form Data:", formData);
+//   document.addEventListener("DOMContentLoaded", () => {
+//     const destinationDropdown = document.getElementById("destination");
+//     const cityInput = document.getElementById("city");
+//     const countryInput = document.getElementById("country");
+
+//     dataTempatWisata.forEach((tempat) => {
+//       const option = document.createElement("option");
+//       option.value = `${tempat.name},${tempat.city},${tempat.country}`;
+//       option.textContent = `${tempat.name} (${tempat.city}, ${tempat.country})`;
+//       destinationDropdown.appendChild(option);
+//     });
+
+//     destinationDropdown.addEventListener("change", () => {
+//       const selectedValue = destinationDropdown.value;
+//       const [, city, country] = selectedValue.split(",");
+//       cityInput.value = city || "";
+//       countryInput.value = country || "";
+//     });
+
+//     console.log("Dropdown populated:", dataTempatWisata);
+//   });
+
+document.addEventListener("DOMContentLoaded", async () => {
+  const destinationDropdown = document.getElementById("destination");
+  const cityInput = document.getElementById("city");
+  const countryInput = document.getElementById("country");
+  const dateInput = document.getElementById("tanggal");
+  // const notesInput = document.getElementById("notes");
+
+  // Fetching the destination data from the API
+  const dataTempatWisata = await getData(
+    "http://127.0.0.1:5000/api/tempat-wisata"
+  );
+
+  console.log(dataTempatWisata);
+  // Populate the dropdown with destinations
+  dataTempatWisata.forEach((tempat) => {
+    const option = document.createElement("option");
+    option.value = tempat.id;
+    option.textContent = `${tempat.NamaTempatWisata} (${tempat.NamaKota}, ${tempat.NamaNegara})`;
+    destinationDropdown.appendChild(option);
   });
+
+  // Set city and country fields based on selected destination
+  destinationDropdown.addEventListener("change", () => {
+    const selectedId = destinationDropdown.value;
+    const selectedTempat = dataTempatWisata.find(
+      (tempat) => tempat.id == selectedId
+    );
+
+    if (selectedTempat) {
+      cityInput.value = selectedTempat.NamaKota || "";
+      countryInput.value = selectedTempat.NamaNegara || "";
+    }
+  });
+
+  // Handle form submission
+  document
+    .getElementById("travelLogForm")
+    .addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const selectedId = destinationDropdown.value;
+      const date = dateInput.value;
+      // console.log(date);
+      // console.log(selectedId);
+      // const notes = notesInput.value;
+
+      if (!selectedId || !date) {
+        alert("Please select a destination and date.");
+        return;
+      }
+
+      const TravelLogData = {
+        TempatWisataId: selectedId,
+        Tanggal: date,
+        DeskripsiUser: document.getElementById("notes").value,
+        ImagePath: "../../../../img/Sample-Image.jpg",
+      };
+
+      const result = await postData(
+        "http://127.0.0.1:5000/api/travel-log",
+        TravelLogData
+      )
+        .then((response) => {
+          console.log("Data berhasil ditambahkan:", response);
+          alert("Travel Log berhasil ditambahkan!");
+          // window.location.href = `../../pages/bucket-list/BucketList.html`;
+        })
+        .catch((error) => {
+          console.error("Terjadi kesalahan:", error);
+          alert("Terjadi kesalahan saat menambahkan travel log.");
+        });
+
+      console.log("Travel Log Data:", result);
+    });
+
+  // console.log("Dropdown populated:", dataTempatWisata);
+});
 
 document.getElementById("cancelButton").addEventListener("click", function () {
   document.getElementById("travelLogForm").reset();
