@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AstralTrail</title>
+    <link rel="stylesheet" href="../../styles/styles.css" />
+    <link rel="stylesheet" href="../../styles/Form.css" />
+    <link rel="stylesheet" href="../../styles/Navbar.css" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="container-navbar">
+        <!-- Logo -->
+        <div class="logo">
+          <img
+            src="../../../../img/Logo-AstralTrail.png"
+            alt="Logo Astral Trail"
+            class="logo-img"
+          />
+          <h1>AstralTrail</h1>
+        </div>
+
+        <!-- Menu Desktop -->
+        <ul class="menu menu-desktop">
+          <li><a href="../tempat-wisata/TempatWisata.html">TempatWisata</a></li>
+          <li><a href="../travel-log/TravelLog.html">TravelLog</a></li>
+          <li><a href="BucketList.html">BucketList</a></li>
+          <li><a href="../travel-trail/TravelTrail.html">TravelTrail</a></li>
+        </ul>
+
+        <!-- Hamburger Button (Mobile) -->
+        <div class="hamburger-menu">
+          <button id="toggleButton" class="hamburger-button">☰</button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Sidebar (Mobile) -->
+    <div id="mobileSidebar" class="sidebar">
+      <button id="closeButton" class="close-button">×</button>
+      <ul class="menu menu-mobile">
+        <li><a href="../tempat-wisata/TempatWisata.html">TempatWisata</a></li>
+        <li><a href="../travel-log/TravelLog.html">TravelLog</a></li>
+        <li><a href="BucketList.html">BucketList</a></li>
+        <li><a href="../travel-trail/TravelTrail.html">TravelTrail</a></li>
+      </ul>
+    </div>
+
+    <div class="container">
+      <!-- Header Section -->
+      <div class="header">
+        <button
+          id="backButton"
+          class="back-button"
+          onclick="window.location.href='BucketList.html'"
+        > < </button>
+        <h1 class="text-h1">Edit BucketList</h1>
+      </div>
+
+      <!-- Form Section -->
+      <form id="bucketListForm" class="form">
+        <!-- Dropdown -->
+        <div class="form-group">
+            <label for="destination">Destination <span class="text-red">*</span></label>
+            <select id="destination" required class="input">
+              <option value="" disabled selected>Select From Tempat Wisata</option>
+              <!-- Options will be populated dynamically -->
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="city">City <span class="text-red"></span></label>
+            <input id="city" type="text" placeholder="auto keisi dari tempat wisata" required class="input" readonly />
+        </div>
+        
+        <div class="form-group">
+            <label for="country">Country <span class="text-red"></span></label>
+            <input id="country" type="text" placeholder="auto keisi dari tempat wisata" required class="input" readonly />
+        </div>
+
+        <!-- Tanggal -->
+        <div class="form-group">
+          <label for="tanggal">Tanggal <span class="text-red">*</span></label>
+          <input id="tanggal" type="date" required class="input" />
+        </div>
+
+        <!-- <div class="form-group">
+          <label for="description">
+            Notes <span class="text-red">*</span>
+          </label>
+          <textarea
+            id="description"
+            rows="5"
+            placeholder="Masukkan Deskripsi Tempat Wisata"
+            required
+            class="textarea"
+          ></textarea>
+        </div> -->
+
+        <!-- Kolom Upload Gambar -->
+        <div class="button-group">
+          <button type="button" id="cancelButton" class="button cancel-button">
+            Reset
+          </button>
+          <button type="submit" class="button save-button">Save</button>
+        </div>
+      </form>
+    </div>
+
+    <script type="module" src="../../js/bucket-list/EditBucketList.js"></script>
+    <script src="../../js/Navbar.js"></script>
+  </body>
+</html>

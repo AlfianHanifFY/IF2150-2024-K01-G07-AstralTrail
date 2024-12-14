@@ -1,0 +1,21 @@
+# Ignore virtual environment
+venv/
+
+# Byte-compiled Python files
+__pycache__/
+*.py[cod]
+
+# Editor-specific files
+.vscode/
+.idea/
+*.swp
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+*.ou
+
+.env

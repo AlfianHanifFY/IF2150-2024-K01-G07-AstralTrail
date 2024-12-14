@@ -1,0 +1,133 @@
+/* Header Section */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  font-size: 1.8rem;
+}
+.back-button {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  color: #333;
+}
+
+.back-button:hover {
+  color: #555;
+}
+
+.text-h1 {
+  margin-left: 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Form TempatWisata */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+label {
+  font-weight: bold;
+}
+
+.text-red {
+  color: red;
+}
+
+.input,
+.textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
+}
+
+.textarea {
+  resize: none;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
+}
+
+.button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  color: white;
+}
+
+.cancel-button {
+  background-color: #e74c3c;
+}
+
+.cancel-button:hover {
+  background-color: #c0392b;
+}
+
+.save-button {
+  background-color: #333;
+}
+
+.save-button:hover {
+  background-color: #555;
+}
+
+.remove-button {
+  background-color: transparent;
+  border: none;
+  color: red;
+  font-size: 30px;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: none;
+}
+
+.drag-area {
+  position: relative;
+  border-radius: 8px;
+  border: 2px dashed #ccc;
+  padding: 20px;
+  text-align: center;
+  background-color: #f0f0f0;
+  min-height: 170px;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+}
+
+
+#dragText {
+  font-size: 14px;
+  color: #888;
+}
+
+#preview {
+  max-width: 100%;
+  max-height: 200px;
+  display: block;
+  margin-top: 10px;
+}
