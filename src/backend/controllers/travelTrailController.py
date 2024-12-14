@@ -7,16 +7,38 @@ def showStatisticPage():
         connection = get_db_connection()
         cursor = connection.cursor()
 
-        query = '''
+        # For Overall Graph
+        query_TempatWisata = '''
+            SELECT 
+                TW.id, TW.NamaTempatWisata, TW.NamaNegara, TW.NamaKota,
+                COUNT(TL.id) AS VisitCount
+            FROM TravelLog TL
+            JOIN TempatWisata TW ON TW.id = TL.TempatWisataID 
+            GROUP BY TW.NamaTempatWisata, TW.NamaNegara, TW.NamaKota;
         '''
-        cursor.execute(query)
-        travel_logs = cursor.fetchall()
+        cursor.execute(query_TempatWisata)
+        statTempatWisata = cursor.fetchall()
 
-        return jsonify([
-            {
-            }
-            for data in travel_logs
-        ])
+        # Insight on most visited Country
+        query_Negara = '''
+            SELECT
+                TW.id, TW.NamaNegara,
+                COUNT(TL.id) AS VisitCount
+            FROM TravelLog TL
+            JOIN TempatWisata TW ON TW.id = TL.TempatWisataID
+            GROUP BY TW.NamaNegara
+            ORDER BY COUNT(TL.id);
+        '''
+
+        cursor.execute(query_Negara)
+        statNegara = cursor.fetchall()
+
+
+
+        return jsonify({
+            "TempatWisata" : statTempatWisata,
+            "Negara" : statNegara
+        })
 
     except Exception as e:
         return jsonify({"message": str(e)}), 500
