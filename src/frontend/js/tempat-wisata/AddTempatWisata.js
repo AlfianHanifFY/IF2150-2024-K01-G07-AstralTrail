@@ -1,18 +1,29 @@
-document
-  .getElementById("tempatWisataForm")
-  .addEventListener("submit", function (e) {
-    e.preventDefault();
+import { postData } from "../api.js";
 
-    const formData = {
-      id: Date.now(),
-      name: document.getElementById("name").value,
-      city: document.getElementById("city").value,
-      country: document.getElementById("country").value,
-      description: document.getElementById("description").value,
-      image: document.getElementById("image").files[0],
-    };
+document.getElementById("tempatWisataForm").addEventListener("submit", async function (e) {
+  e.preventDefault();
 
-    console.log("Form Data:", formData);
+  const formData = {
+    NamaTempatWisata: document.getElementById("name").value,
+    NamaNegara: document.getElementById("country").value,
+    NamaKota: document.getElementById("city").value,
+    Deskripsi: document.getElementById("description").value,
+    ImagePath: "../../../../img/Sample-Image.jpg",
+  };
+
+  const result = await postData("http://127.0.0.1:5000/api/tempat-wisata", formData)
+    .then((response) => {
+      console.log("Data berhasil ditambahkan:", response);
+      alert("Tempat wisata berhasil ditambahkan!");
+      // window.location.href = `../../pages/tempat-wisata/TempatWisata.html`;
+    })
+    .catch((error) => {
+      console.error("Terjadi kesalahan:", error);
+      alert("Terjadi kesalahan saat menambahkan tempat wisata.");
+    });
+
+  // console.log("Form Data:", result);
+
   });
 
 document.getElementById("cancelButton").addEventListener("click", function () {

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AstralTrail</title>
     <link rel="stylesheet" href="../../styles/styles.css" />
+    <link rel="stylesheet" href="../../styles/DetailTempatWisata.css" />
     <link rel="stylesheet" href="../../styles/Navbar.css" />
   </head>
   <body>
@@ -27,7 +28,6 @@
           <li><a href="../travel-log/TravelLog.html">TravelLog</a></li>
           <li><a href="../bucket-list/BucketList.html">BucketList</a></li>
           <li><a href="../travel-trail/TravelTrail.html">TravelTrail</a></li>
-          <!-- <li><a href="../api/index.html">TEST API</a></li> -->
         </ul>
 
         <!-- Hamburger Button (Mobile) -->
@@ -45,21 +45,35 @@
         <li><a href="../travel-log/TravelLog.html">TravelLog</a></li>
         <li><a href="../bucket-list/BucketList.html">BucketList</a></li>
         <li><a href="../travel-trail/TravelTrail.html">TravelTrail</a></li>
-        <!-- <li><a href="../api/index.html">TEST API</a></li> -->
       </ul>
     </div>
 
-    <!-- Konten Utama -->
     <div class="container">
-      <div id="tempat-wisata-cards" class="grid"></div>
+      <div class="header">
+        <button
+          id="backButton"
+          class="back-button"
+          onclick="window.location.href='TempatWisata.html'"
+        >
+          <
+        </button>
+        <h1 class="text-h1">Back</h1>
+      </div>
+
+      <div class="content">
+        <div class="image-container">
+          <img src="" alt="" class="image" />
+        </div>
+        <div class="details">
+          <h1 class="title"></h1>
+          <h2 class="location"></h2>
+          <p class="description">
+          </p>
+        </div>
+      </div>
     </div>
 
-    <!-- Button Add -->
-    <a href="AddTempatWisata.html">
-      <div class="add-button"><h3>+</h3></div>
-    </a>
-
-    <script type="module" src="../../js/tempat-wisata/TempatWisata.js"></script>
+    <script type="module" src="../../js/tempat-wisata/DetailTempatWisata.js"></script>
     <script src="../../js/Navbar.js"></script>
   </body>
 </html>
