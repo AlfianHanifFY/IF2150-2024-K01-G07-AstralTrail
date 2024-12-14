@@ -4,7 +4,7 @@
 //     { name: "Statue of Liberty", city: "New York", country: "USA" },
 //   ];
 
-import { getData, postData } from "../api.js";
+import { getData, postData, uploadImage } from "../api.js";
 
 //   document.addEventListener("DOMContentLoaded", () => {
 //     const destinationDropdown = document.getElementById("destination");
@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const cityInput = document.getElementById("city");
   const countryInput = document.getElementById("country");
   const dateInput = document.getElementById("tanggal");
+  
   // const notesInput = document.getElementById("notes");
 
   // Fetching the destination data from the API
@@ -70,6 +71,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const selectedId = destinationDropdown.value;
       const date = dateInput.value;
+
+      
       // console.log(date);
       // console.log(selectedId);
       // const notes = notesInput.value;
@@ -78,12 +81,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         alert("Please select a destination and date.");
         return;
       }
+      const imageFile = document.getElementById("image").files[0];
+      const imagePath = await uploadImage(imageFile);
 
       const TravelLogData = {
         TempatWisataId: selectedId,
         Tanggal: date,
         DeskripsiUser: document.getElementById("notes").value,
-        ImagePath: "../../../../img/Sample-Image.jpg",
+        ImagePath: imagePath,
       };
 
       const result = await postData(

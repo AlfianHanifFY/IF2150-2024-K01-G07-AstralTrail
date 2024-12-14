@@ -59,13 +59,19 @@ def delete_bucketList_route(id):
     return delete_bucketList(id)
 
 # Get all Travel Log
+# http://127.0.0.1:5000/api/travel-log?country=arab
 @app.route('/api/travel-log', methods=['GET'])
 def get_travelLog_route():
-    return get_travelLog()
+    # Extract the 'country' query parameter from the request
+    country = request.args.get('country')
+    if not country:
+        return get_travelLog()
+    # Call the function to fetch travel logs based on the country
+    return get_travelLogByCountry(country)
 
 @app.route('/api/travel-log/<int:id>', methods=['GET'])
-def get_travelLogById_route():
-    return get_travelLogById()
+def get_travelLogById_route(id):
+    return get_travelLogById(id)
 
 # Create a Travel Log
 @app.route('/api/travel-log', methods=['POST'])
