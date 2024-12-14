@@ -117,7 +117,7 @@
    ```
 
 ## Modules
-| **Nama Modul**              | **Dikerjakan oleh** |**Gambar**                                           |
+| **Modules Name**            | **Develop By**      |**Image**                                            |
 |-----------------------------|---------------------|-----------------------------------------------------|
 | Tempat Wisata               | 13523091            |![tempat wisata](./docs/tempat-wisata.png)           |
 | Travel Log                  | 13523107            |![travel log](./docs/travel-log.png)                 |
@@ -126,6 +126,7 @@
 | Form Tempat Wisata          | 13523091            |![form tempat wisata](./docs/form-tempat-wisata.png) | 
 | Form Travel Log             | 13523107            |![form travel log](./docs/form-travel-log.png)       |
 | Form Bucket List            | 13523121            |![form  bucket list](./docs/form-bucket-list.png)    |
+| Database                    | 13523121            |![database](./docs/database.png)                     |
 
 ## Database Table
 The following is a list of the tables that have been implemented:
