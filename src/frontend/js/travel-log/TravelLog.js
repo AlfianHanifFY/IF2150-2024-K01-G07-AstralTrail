@@ -195,4 +195,35 @@ function formatDateToDDMMYYYY(date) {
   return `${day}/${month}/${year}`;
 }
 
+document.addEventListener("DOMContentLoaded", async () => {
+  const destinationDropdown = document.getElementById("destination");
+  const dataTempatWisata = await getData(
+    "http://127.0.0.1:5000/api/tempat-wisata"
+  );
+
+  console.log(dataTempatWisata);
+  // Populate the dropdown with destinations
+  dataTempatWisata.forEach((tempat) => {
+    const option = document.createElement("option");
+    option.value = tempat.id;
+    option.textContent = `${tempat.NamaTempatWisata} (${tempat.NamaKota}, ${tempat.NamaNegara})`;
+    destinationDropdown.appendChild(option);
+  });
+
+  // Set city and country fields based on selected destination
+  destinationDropdown.addEventListener("change", () => {
+    const selectedId = destinationDropdown.value;
+    const selectedTempat = dataTempatWisata.find(
+      (tempat) => tempat.id == selectedId
+    );
+
+    if (selectedTempat) {
+      cityInput.value = selectedTempat.NamaKota || "";
+      countryInput.value = selectedTempat.NamaNegara || "";
+    }
+  });
+  })
+  // Handle form submission
+  
+
 loadTravelLogData();

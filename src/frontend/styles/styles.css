@@ -166,3 +166,15 @@ a {
   font-size: 35px;
   font-weight: 400;
 }
+
+.filter-container {
+  position: absolute;
+  right: 10px;
+  z-index: 1000;
+}
+
+.filter-dropdown {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+}
