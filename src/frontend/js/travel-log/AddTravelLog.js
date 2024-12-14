@@ -1,74 +1,20 @@
-import { getData, postData, uploadImage } from "../api.js";
+document
+  .getElementById("travelLogForm")
+  .addEventListener("submit", function (e) {
+    e.preventDefault();
 
-document.addEventListener("DOMContentLoaded", async () => {
-  const destinationDropdown = document.getElementById("destination");
-  const cityInput = document.getElementById("city");
-  const countryInput = document.getElementById("country");
-  const dateInput = document.getElementById("tanggal");
-  
-  const dataTempatWisata = await getData(
-    "http://127.0.0.1:5000/api/tempat-wisata"
-  );
+    const formData = {
+      id: Date.now(),
+      name: document.getElementById("name").value,
+      city: document.getElementById("city").value,
+      country: document.getElementById("country").value,
+      date: document.getElementById("date").value,
+      description: document.getElementById("description").value,
+      image: document.getElementById("image").files[0],
+    };
 
-  // console.log(dataTempatWisata);
-  dataTempatWisata.forEach((tempat) => {
-    const option = document.createElement("option");
-    option.value = tempat.id;
-    option.textContent = `${tempat.NamaTempatWisata} (${tempat.NamaKota}, ${tempat.NamaNegara})`;
-    destinationDropdown.appendChild(option);
+    console.log("Form Data:", formData);
   });
-
-  destinationDropdown.addEventListener("change", () => {
-    const selectedId = destinationDropdown.value;
-    const selectedTempat = dataTempatWisata.find(
-      (tempat) => tempat.id == selectedId
-    );
-
-    if (selectedTempat) {
-      cityInput.value = selectedTempat.NamaKota || "";
-      countryInput.value = selectedTempat.NamaNegara || "";
-    }
-  });
-
-  document
-    .getElementById("travelLogForm")
-    .addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      const selectedId = destinationDropdown.value;
-      const date = dateInput.value;
-
-      if (!selectedId || !date) {
-        alert("Please select a destination and date.");
-        return;
-      }
-      const imageFile = document.getElementById("image").files[0];
-      const imagePath = await uploadImage(imageFile);
-
-      const TravelLogData = {
-        TempatWisataId: selectedId,
-        Tanggal: date,
-        DeskripsiUser: document.getElementById("notes").value,
-        ImagePath: imagePath,
-      };
-
-      const result = await postData(
-        "http://127.0.0.1:5000/api/travel-log",
-        TravelLogData
-      )
-        .then((response) => {
-          console.log("Data berhasil ditambahkan:", response);
-          alert("Travel Log berhasil ditambahkan!");
-          window.location.href = `../../pages/travel-log/TravelLog.html`;
-        })
-        .catch((error) => {
-          console.error("Terjadi kesalahan:", error);
-          alert("Terjadi kesalahan saat menambahkan travel log.");
-        });
-
-      console.log("Travel Log Data:", result);
-    });
-});
 
 document.getElementById("cancelButton").addEventListener("click", function () {
   document.getElementById("travelLogForm").reset();
