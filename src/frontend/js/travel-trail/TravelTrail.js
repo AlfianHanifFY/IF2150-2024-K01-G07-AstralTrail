@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             borderColor: "rgba(75,192,192,1)",
             backgroundColor: "rgba(74, 144, 226, 0.1)",
             tension: 0.4,
+            fill : true,
           },
         ],
       },
