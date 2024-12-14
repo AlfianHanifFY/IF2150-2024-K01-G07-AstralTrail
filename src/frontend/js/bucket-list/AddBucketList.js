@@ -32,8 +32,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const selectedId = destinationDropdown.value;
     const date = dateInput.value;
-    console.log(date);
-    console.log(selectedId);
 
     if (!selectedId || !date) {
       alert("Please select a destination and date.");
@@ -55,19 +53,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.error("Terjadi kesalahan:", error);
         alert("Terjadi kesalahan saat menambahkan bucket list.");
       });
-
-    console.log("BucketList Data:", result);
   });
 
   document
     .getElementById("cancelButton")
     .addEventListener("click", function () {
       document.getElementById("bucketListForm").reset();
-      // document.getElementById("preview").style.display = "none";
-      // document.getElementById("dragText").style.display = "block";
-      // document.getElementById("removeImage").style.display = "none";
       document.getElementById("image").value = "";
     });
-
-  // console.log("Dropdown populated:", dataTempatWisata);
 });

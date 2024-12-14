@@ -1,66 +1,87 @@
-// import { getData, putData } from "../api.js";
+import { getData, putData } from "../api.js";
 
-// const bucketListId = new URLSearchParams(window.location.search).get("id");
-// console.log("Bucket List ID:", bucketListId);
+const bucketListId = new URLSearchParams(window.location.search).get("id");
 
-// // Memuat data bucket list dan mengisi form
-// async function loadBucketListData() {
-//   if (!bucketListId) {
-//     alert("ID Bucket List tidak ditemukan!");
-//     return;
-//   }
+async function loadTempatWisata() {
+  try {
+    const tempatWisataData = await getData(
+      "http://127.0.0.1:5000/api/tempat-wisata"
+    );
+    const destinationDropdown = document.getElementById("destination");
 
-//   try {
-//     const bucketList = await getData(
-//       `http://127.0.0.1:5000/api/bucket-list/${bucketListId}`
-//     );
-//     console.log("Bucket List Data:", bucketList);
+    tempatWisataData.forEach((tempat) => {
+      const option = document.createElement("option");
+      option.value = tempat.id;
+      option.textContent = `${tempat.NamaTempatWisata} (${tempat.NamaKota}, ${tempat.NamaNegara})`;
+      destinationDropdown.appendChild(option);
+    });
+  } catch (error) {
+    console.error("Gagal memuat data tempat wisata:", error);
+    alert("Terjadi kesalahan saat memuat data tempat wisata.");
+  }
+}
 
-//     // Mengisi form dengan data bucket list
-//     document.getElementById("destination").value = bucketList.TempatWisataId;
-//     document.getElementById("city").value = bucketList.NamaKota || "";
-//     document.getElementById("country").value = bucketList.NamaNegara || "";
-//     document.getElementById("tanggal").value = new Date(bucketList.Tanggal)
-//       .toISOString()
-//       .slice(0, 10); // Format YYYY-MM-DD
-//   } catch (error) {
-//     console.error("Gagal memuat data bucket list:", error);
-//     alert("Terjadi kesalahan saat memuat data bucket list.");
-//   }
-// }
+async function loadBucketListData() {
+  if (!bucketListId) {
+    alert("ID Bucket List tidak ditemukan!");
+    return;
+  }
 
-// // Menangani submit form untuk update data
-// document
-//   .getElementById("bucketListForm")
-//   .addEventListener("submit", async (e) => {
-//     e.preventDefault();
+  try {
+    const bucketList = await getData(
+      `http://127.0.0.1:5000/api/bucket-list/${bucketListId}`
+    );
 
-//     const destination = document.getElementById("destination").value;
-//     const date = document.getElementById("tanggal").value;
+    const destinationDropdown = document.getElementById("destination");
+    const selectedTempatWisataId = bucketList[0].TempatWisataId;
 
-//     if (!destination || !date) {
-//       alert("Harap isi semua field!");
-//       return;
-//     }
+    destinationDropdown.value = selectedTempatWisataId;
 
-//     const updatedData = {
-//       TempatWisataId: destination,
-//       Tanggal: date,
-//     };
+    document.getElementById("city").value = bucketList[0].NamaKota || "";
+    document.getElementById("country").value = bucketList[0].NamaNegara || "";
 
-//     try {
-//       const result = await putData(
-//         `http://127.0.0.1:5000/api/bucket-list/${bucketListId}`,
-//         updatedData
-//       );
-//       console.log("Data berhasil diperbarui:", result);
-//       alert("Bucket list berhasil diperbarui!");
-//     //   window.location.href = "../../pages/bucket-list/BucketList.html"; // Redirect setelah berhasil
-//     } catch (error) {
-//       console.error("Gagal memperbarui bucket list:", error);
-//       alert("Terjadi kesalahan saat memperbarui bucket list.");
-//     }
-//   });
+    const tanggal = new Date(bucketList[0].Tanggal);
+    const formattedDate = tanggal.toISOString().split("T")[0];
+    document.getElementById("tanggal").value = formattedDate;
+  } catch (error) {
+    console.error("Gagal memuat data bucket list:", error);
+    alert("Terjadi kesalahan saat memuat data bucket list.");
+  }
+}
 
-// // Memuat data bucket list saat halaman dimuat
-// document.addEventListener("DOMContentLoaded", loadBucketListData);
+document
+  .getElementById("bucketListForm")
+  .addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const destination = document.getElementById("destination").value;
+    const date = document.getElementById("tanggal").value;
+
+    if (!destination || !date) {
+      alert("Harap isi semua field!");
+      return;
+    }
+
+    const updatedData = {
+      TempatWisataId: destination,
+      Tanggal: date,
+    };
+
+    try {
+      const result = await putData(
+        `http://127.0.0.1:5000/api/bucket-list/${bucketListId}`,
+        updatedData
+      );
+      console.log("Data berhasil diperbarui:", result);
+      alert("Bucket list berhasil diperbarui!");
+      window.location.href = `../../pages/bucket-list/BucketList.html`;
+    } catch (error) {
+      console.error("Gagal memperbarui bucket list:", error);
+      alert("Terjadi kesalahan saat memperbarui bucket list.");
+    }
+  });
+
+document.addEventListener("DOMContentLoaded", async () => {
+  await loadTempatWisata();
+  loadBucketListData();
+});
