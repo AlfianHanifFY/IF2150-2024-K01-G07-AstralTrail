@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AstralTrail</title>
     <link rel="stylesheet" href="../../styles/styles.css" />
-    <link rel="stylesheet" href="../../styles/Form.css" />
+    <link rel="stylesheet" href="../../styles/FormTravelLog.css" />
     <link rel="stylesheet" href="../../styles/Navbar.css" />
   </head>
   <body>
@@ -63,39 +63,55 @@
 
       <!-- Form Section -->
       <form id="travelLogForm" class="form">
-        <!-- Dropdown -->
         <div class="form-group">
-            <label for="destination">Destination <span class="text-red">*</span></label>
-            <select id="destination" required class="input">
-              <option value="" disabled selected>Select From Tempat Wisata</option>
-              <!-- Options will be populated dynamically -->
-            </select>
-        </div>
-        
-        <div class="form-group">
-            <label for="city">City <span class="text-red"></span></label>
-            <input id="city" type="text" placeholder="auto keisi dari tempat wisata" required class="input" readonly />
-        </div>
-        
-        <div class="form-group">
-            <label for="country">Country <span class="text-red"></span></label>
-            <input id="country" type="text" placeholder="auto keisi dari tempat wisata" required class="input" readonly />
-        </div>
-
-        <!-- Tanggal -->
-        <div class="form-group">
-          <label for="tanggal">Tanggal <span class="text-red">*</span></label>
-          <input id="tanggal" type="date" required class="input" />
+          <label for="name">
+            Destination <span class="text-red">*</span>
+          </label>
+          <select id="destination" class="input">
+            <option>Select From TempatWisata List</option>
+          </select>
         </div>
 
         <div class="form-group">
-          <label for="notes">
-            Notes <span class="text-red">*</span>
+          <label for="country"> Country <span class="text-red">*</span> </label>
+          <input
+            id="country"
+            type="text"
+            placeholder="Masukkan Nama Negara"
+            required
+            class="input"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="city"> City <span class="text-red">*</span> </label>
+          <input
+            id="city"
+            type="text"
+            placeholder="Masukkan Nama Kota"
+            required
+            class="input"
+          />
+        </div>
+
+        <div class="form-group">
+            <label for="date"> Date <span class="text-red">*</span> </label>
+                  <input
+                    id="date"
+                    type="date"
+                    class="calendar"
+                    required
+                  />    
+          </div>
+
+        <div class="form-group">
+          <label for="description">
+            Description <span class="text-red">*</span>
           </label>
           <textarea
-            id="notes"
+            id="description"
             rows="5"
-            placeholder="Masukkan Notes Perjalananmu"
+            placeholder="Masukkan Deskripsi Tempat Wisata"
             required
             class="textarea"
           ></textarea>
@@ -120,7 +136,6 @@
               id="removeImage"
               class="remove-button"
               style="display: none"
-              type="button"
             >
               &times;
             </button>
@@ -136,7 +151,7 @@
       </form>
     </div>
 
-    <script type="module" src="../../js/travel-log/AddTravelLog.js"></script>
+    <script src="../../js/travel-log/AddTravelLog.js"></script>
     <script src="../../js/Navbar.js"></script>
   </body>
 </html>

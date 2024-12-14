@@ -10,7 +10,7 @@ def get_travelLog():
         query = '''
             SELECT TravelLog.id, TravelLog.TempatWisataId, 
                    TempatWisata.NamaTempatWisata, TravelLog.Tanggal, 
-                   TravelLog.DeskripsiUser, TravelLog.ImagePath, TempatWisata.NamaNegara, TempatWisata.NamaKota
+                   TravelLog.DeskripsiUser, TravelLog.ImagePath 
             FROM TravelLog 
             JOIN TempatWisata ON TravelLog.TempatWisataId = TempatWisata.id
         '''
@@ -24,9 +24,7 @@ def get_travelLog():
                 "NamaTempatWisata": data[2],
                 "Tanggal": data[3],
                 "DeskripsiUser": data[4],
-                "ImagePath": data[5],
-                "NamaNegara": data[6],
-                "NamaKota": data[7]
+                "ImagePath": data[5]
             }
             for data in travel_logs
         ])
@@ -45,10 +43,9 @@ def get_travelLogById(id):
         query = '''
             SELECT TravelLog.id, TravelLog.TempatWisataId, 
                    TempatWisata.NamaTempatWisata, TravelLog.Tanggal, 
-                   TravelLog.DeskripsiUser, TravelLog.ImagePath, TempatWisata.NamaNegara, TempatWisata.NamaKota
+                   TravelLog.DeskripsiUser, TravelLog.ImagePath 
             FROM TravelLog 
             JOIN TempatWisata ON TravelLog.TempatWisataId = TempatWisata.id
-            WHERE TravelLog.id = %s
         '''
         cursor.execute(query,id)
         travel_logs = cursor.fetchall()
@@ -60,45 +57,7 @@ def get_travelLogById(id):
                 "NamaTempatWisata": data[2],
                 "Tanggal": data[3],
                 "DeskripsiUser": data[4],
-                "ImagePath": data[5],
-                "NamaNegara": data[6],
-                "NamaKota": data[7]
-            }
-            for data in travel_logs
-        ])
-
-    except Exception as e:
-        return jsonify({"message": str(e)}), 500
-
-    finally:
-        connection.close()
-        
-def get_travelLogByCountry(country):
-    try:
-        connection = get_db_connection()
-        cursor = connection.cursor()
-
-        query = '''
-           SELECT TravelLog.id, TravelLog.TempatWisataId, 
-                   TempatWisata.NamaTempatWisata, TravelLog.Tanggal, 
-                   TravelLog.DeskripsiUser, TravelLog.ImagePath, TempatWisata.NamaNegara, TempatWisata.NamaKota
-            FROM TravelLog 
-            JOIN TempatWisata ON TravelLog.TempatWisataId = TempatWisata.id
-            WHERE TempatWisata.NamaNegara = %s
-        '''
-        cursor.execute(query,country)
-        travel_logs = cursor.fetchall()
-
-        return jsonify([
-            {
-                "id": data[0],
-                "TempatWisataId": data[1],
-                "NamaTempatWisata": data[2],
-                "Tanggal": data[3],
-                "DeskripsiUser": data[4],
-                "ImagePath": data[5],
-                "NamaNegara": data[6],
-                "NamaKota": data[7]
+                "ImagePath": data[5]
             }
             for data in travel_logs
         ])
