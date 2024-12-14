@@ -171,18 +171,19 @@ a {
 #chartsContainer {
   display: flex;
   justify-content: space-between; 
+  flex-wrap: wrap;
   gap: 20px; 
   width: 100%;
   margin: 20px auto;
 }
 
 .chartWrapper{
-  flex:1;
-  max-width: 40%;
+  flex:1 1 48%;
+  max-width: 600px;
 }
 
 #lineChart {
-  width: 100%;
+  width: 300px;
   height: auto; 
 }
 
@@ -193,6 +194,15 @@ a {
   height: auto; 
 }
 
+@media screen and (max-width: 768px) {
+  .chart-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .chart-wrapper {
+    flex: 1 1 100%; /* Takes full width for smaller screens */
+  }
+}
 
 /*Country CSS*/
 .top-country-container {
