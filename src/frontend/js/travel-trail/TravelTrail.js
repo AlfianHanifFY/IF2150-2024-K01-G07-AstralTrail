@@ -17,8 +17,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Line Chart
     const lineChartCtx = document.getElementById("lineChart").getContext("2d");
-    const lineChartLabels = tempatWisataData.map((item) => item[1]);
-    const lineChartValues = tempatWisataData.map((item) => item[4]);
+    const lineChartLabels = tempatWisataData.map((item) => `${item[0]}-${String(item[1]).padStart(2, '0')}`);
+    const lineChartValues = tempatWisataData.map((item) => item[2]);
 
     new Chart(lineChartCtx, {
       type: "line",
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             },
           },
           legend: {
-            display: false,
+            display: false, // Clean look
           },
         },
         scales: {
