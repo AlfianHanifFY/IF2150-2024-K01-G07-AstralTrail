@@ -7,23 +7,39 @@ def execute_sql_files(directory):
         connection = get_db_connection()
         cursor = connection.cursor()
 
-        # Loop through all .sql files in the models directory
+        priority_file = 'tempatWisataModel.sql'
+        other_files = []
+
         for filename in os.listdir(directory):
             if filename.endswith('.sql'):
-                filepath = os.path.join(directory, filename)
-                print(f"Executing {filepath}")
+                if filename == priority_file:
+                    priority_filepath = os.path.join(directory, filename)
+                else:
+                    other_files.append(os.path.join(directory, filename))
 
-                # Read and execute the SQL commands
-                with open(filepath, 'r') as file:
-                    sql_commands = file.read()
+        if 'priority_filepath' in locals():
+            print(f"Executing {priority_filepath}")
+            with open(priority_filepath, 'r') as file:
+                sql_commands = file.read()
 
-                try:
-                    cursor.execute(sql_commands)
-                    connection.commit()
-                    print(f"{filename} executed successfully!")
+            try:
+                cursor.execute(sql_commands)
+                connection.commit()
+                print(f"{priority_file} executed successfully!")
+            except Exception as e:
+                print(f"Failed to execute {priority_file}: {str(e)}")
 
-                except Exception as e:
-                    print(f"Failed to execute {filename}: {str(e)}")
+        for filepath in other_files:
+            print(f"Executing {filepath}")
+            with open(filepath, 'r') as file:
+                sql_commands = file.read()
+
+            try:
+                cursor.execute(sql_commands)
+                connection.commit()
+                print(f"{os.path.basename(filepath)} executed successfully!")
+            except Exception as e:
+                print(f"Failed to execute {os.path.basename(filepath)}: {str(e)}")
 
         print("Database setup completed.")
 
@@ -33,6 +49,5 @@ def execute_sql_files(directory):
     finally:
         connection.close()
 
-# Run the function to execute all .sql files
 models_directory = './models'
 execute_sql_files(models_directory)

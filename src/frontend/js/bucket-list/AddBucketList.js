@@ -59,6 +59,5 @@ document.addEventListener("DOMContentLoaded", async () => {
     .getElementById("cancelButton")
     .addEventListener("click", function () {
       document.getElementById("bucketListForm").reset();
-      document.getElementById("image").value = "";
     });
 });
