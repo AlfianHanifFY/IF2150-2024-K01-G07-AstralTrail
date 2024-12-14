@@ -1,80 +1,50 @@
-import { getData, putData, uploadImage } from "../api.js";
+import { getData, putData } from "../api.js";
 
 const tempatWisataId = new URLSearchParams(window.location.search).get("id");
+// console.log(tempatWisataId);
 
 async function loadTempatWisataById() {
   const tempatWisata = await getData(
     `http://127.0.0.1:5000/api/tempat-wisata/${tempatWisataId}`
   );
-
-  // Mengisi form dengan data yang ada
+  // console.log(tempatWisata);
   document.getElementById("name").value = tempatWisata[0].NamaTempatWisata;
   document.getElementById("country").value = tempatWisata[0].NamaNegara;
   document.getElementById("city").value = tempatWisata[0].NamaKota;
   document.getElementById("description").value = tempatWisata[0].Deskripsi;
-
-  // Menampilkan gambar yang sudah ada
-  const imagePath = tempatWisata[0].ImagePath;
-  if (imagePath) {
-    preview.src = imagePath;
-    preview.style.display = "block";
-    removeImageButton.style.display = "block";
-    dragText.style.display = "none";
-  }
+  // document.getElementById("image").value = tempatWisata[0].ImagePath;
 }
 loadTempatWisataById();
+
 
 document
   .getElementById("tempatWisataForm")
   .addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    let imagePath = ""; // Default: jika tidak ada gambar baru
-
-    // Jika ada gambar baru, unggah gambar
-    const imageFile = document.getElementById("image").files[0];
-    if (imageFile) {
-      try {
-        imagePath = await uploadImage(imageFile);
-      } catch (error) {
-        console.error("Terjadi kesalahan saat mengunggah gambar:", error);
-        alert("Terjadi kesalahan saat mengunggah gambar.");
-        return;
-      }
-    } else {
-      // Cek jika gambar baru dihapus dan tidak ada gambar
-      const tempatWisata = await getData(
-        `http://127.0.0.1:5000/api/tempat-wisata/${tempatWisataId}`
-      );
-      imagePath = tempatWisata[0].ImagePath || ""; // Tetap gunakan gambar yang ada atau kosongkan
-    }
-
-    // Validation check: If no image is available
-    if (!imagePath) {
-      alert("Harap unggah gambar sebelum menyimpan form.");
-      return;
-    }
-
     const formData = {
       NamaTempatWisata: document.getElementById("name").value,
       NamaNegara: document.getElementById("country").value,
       NamaKota: document.getElementById("city").value,
       Deskripsi: document.getElementById("description").value,
-      ImagePath: imagePath || null, // Use null if no image is available
+      ImagePath: "", // Gunakan gambar yang ada atau kosongkan jika tidak ada.
     };
 
-    try {
-      const result = await putData(
-        `http://127.0.0.1:5000/api/tempat-wisata/${tempatWisataId}`,
-        formData
-      );
-      console.log("Data berhasil diperbarui:", result);
-      alert("Tempat wisata berhasil diperbarui!");
-      window.location.href = `../../pages/tempat-wisata/TempatWisata.html`;
-    } catch (error) {
-      console.error("Terjadi kesalahan:", error);
-      alert("Terjadi kesalahan saat memperbarui tempat wisata.");
-    }
+    const result = await putData(
+      `http://127.0.0.1:5000/api/tempat-wisata/${tempatWisataId}`,
+      formData
+    )
+      .then((response) => {
+        console.log("Data berhasil diperbarui:", response);
+        alert("Tempat wisata berhasil diperbarui!");
+        // window.location.href = `../../pages/tempat-wisata/TempatWisata.html`;    
+      })
+      .catch((error) => {
+        console.error("Terjadi kesalahan:", error);
+        alert("Terjadi kesalahan saat memperbarui tempat wisata.");
+      });
+
+    console.log("Form Data:", result);
   });
 
 // Drag-and-drop logic
@@ -130,5 +100,5 @@ removeImageButton.addEventListener("click", function () {
   preview.style.display = "none";
   dragText.style.display = "block";
   removeImageButton.style.display = "none";
-  fileInput.value = ""; // Reset the file input
+  fileInput.value = "";
 });

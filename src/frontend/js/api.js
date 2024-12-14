@@ -56,10 +56,10 @@ export async function uploadImage(imageFile) {
  const imageFormData = new FormData();
   imageFormData.append("files[]", imageFile);
 
-//   if (!imageFile) {
-//     alert("Please select an image!");
-//     return;
-//   }
+  if (!imageFile) {
+    alert("Please select an image!");
+    return;
+  }
 
   const uploadResponse = await fetch(
     "http://127.0.0.1:5000/api/upload-image",
