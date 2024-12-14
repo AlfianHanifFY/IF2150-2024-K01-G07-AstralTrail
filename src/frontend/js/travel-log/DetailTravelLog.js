@@ -1,27 +1,40 @@
-// import { getData } from "../api.js";
+import { getData } from "../api.js";
 
-// const tempatWisataId = new URLSearchParams(window.location.search).get("id");
-// // console.log(tempatWisataId);
+const travelLogId = new URLSearchParams(window.location.search).get("id");
+// console.log(tempatWisataId);
 
-// async function loadTempatWisataById() {
-//     const tempatWisataData = await getData(
-//         `http://127.0.0.1:5000/api/tempat-wisata/${tempatWisataId}`
-//     );
-//     console.log(tempatWisataData);
-    
-    
-//     const imageElement = document.querySelector(".image");
-//     const titleElement = document.querySelector(".title");
-//     const locationElement = document.querySelector(".location");
-//     const descriptionElement = document.querySelector(".description");
+async function loadTravelLogById() {
+  const travelLogData = await getData(
+    `http://127.0.0.1:5000/api/travel-log/${travelLogId}`
+  );
+  console.log(travelLogData);
 
-//     imageElement.src = tempatWisataData[0].ImagePath;
-//     imageElement.alt = tempatWisataData[0].NamaTempatWisata;
-//     titleElement.textContent = tempatWisataData[0].NamaTempatWisata;
-//     locationElement.textContent = `${tempatWisataData[0].NamaKota}, ${tempatWisataData[0].NamaNegara}`;
-//     descriptionElement.textContent = tempatWisataData[0].Deskripsi;
+  const imageElement = document.querySelector(".image");
+  const titleElement = document.querySelector(".title");
+  const locationElement = document.querySelector(".location");
+  const descriptionElement = document.querySelector(".description");
+  const dateElement = document.querySelector(".date");
 
-//     // document.getElementById("image").value = tempatWisata[0].ImagePath;
-// }
+  imageElement.src = travelLogData[0].ImagePath;
+  imageElement.alt = travelLogData[0].NamaTempatWisata;
+  titleElement.textContent = travelLogData[0].NamaTempatWisata;
+  locationElement.textContent = `${travelLogData[0].NamaKota}, ${travelLogData[0].NamaNegara}`;
 
-// loadTempatWisataById();
+  const rawDate = travelLogData[0].Tanggal;
+  const date = new Date(rawDate);
+  const formattedDate = formatDateToDDMMYYYY(date);
+
+  dateElement.textContent = formattedDate;
+  descriptionElement.textContent = travelLogData[0].DeskripsiUser;
+
+  // document.getElementById("image").value = tempatWisata[0].ImagePath;
+}
+
+function formatDateToDDMMYYYY(date) {
+  const day = String(date.getUTCDate()).padStart(2, "0");
+  const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+  const year = date.getUTCFullYear();
+  return `${day}/${month}/${year}`;
+}
+
+loadTravelLogById();
