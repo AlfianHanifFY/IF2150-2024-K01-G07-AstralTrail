@@ -28,22 +28,58 @@ document.addEventListener("DOMContentLoaded", async () => {
           {
             label: "Report Snapshot",
             data: lineChartValues,
-            borderColor: "rgba(75, 192, 192, 1)",
-            backgroundColor: "rgba(75, 192, 192, 0.2)",
+            borderColor: "#4a90e2",
+            backgroundColor: "rgba(74, 144, 226, 0.1)",
+            tension: 0.4, 
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            pointBackgroundColor: "#4a90e2",
           },
         ],
       },
       options: {
-        responsive: true,
-        maintainAspectRatio:false,
         plugins: {
+            title:{
+                display: true,
+                text: "Report Snapshot",
+                font:{
+                    size: 18,
+                },
+                padding:{
+                    top: 10,
+                    bottom:20,
+                },
+            },
           tooltip: {
+            enabled: true,
             callbacks: {
-              label: (context) => `${context.label}: ${context.raw} visits`,
+              label: (context) => `${context.label}: ${context.raw} visits`
+            },
+          },
+          legend: {
+            display: false, // Clean look
+          },
+        },
+        scales: {
+          x: {
+            grid: {
+              display: false,
+            },
+            ticks: {
+              color: "#6e6e6e",
+            },
+          },
+          y: {
+            beginAtZero: true,
+            grid: {
+              color: "#e5e5e5",
+            },
+            ticks: {
+              color: "#6e6e6e",
             },
           },
         },
-      },
+    }
     });
 
     // Pie Chart
@@ -70,42 +106,57 @@ document.addEventListener("DOMContentLoaded", async () => {
       },
       options: {
         responsive: true,
-        maintainAspectRatio: false
-      },
+        maintainAspectRatio: false,
+        plugins: {
+          title: {
+            display: true,
+            text: "Destination", 
+            font: {
+              size: 18,
+            },
+            padding: {
+              top: 10,
+              bottom: 10,
+            },
+          },
+        },}
     });
 
-    // Country List
-    const countryContainer = document.getElementById("countryContainer");
-    const countryTitle = document.createElement("h3");
-    countryTitle.textContent = "Country";
-    countryContainer.appendChild(countryTitle);
-
-    const countryList = document.createElement("ul");
-
-    negaraData.forEach((country) => {
-      const listItem = document.createElement("li");
-      listItem.textContent = `${country[1]}: ${country[2]} visits`;
-      countryList.appendChild(listItem);
-    });
-
-
-    countryContainer.appendChild(countryList);
 
     // Top Country
-    const topCountryContainer = document.getElementById("topCountryContainer");
-    const topCountryTitle = document.createElement("h3");
-    topCountryTitle.textContent = "Top Country";
-    topCountryContainer.appendChild(topCountryTitle);
+    const dashboardContainer = document.getElementById("topCountryContainer");
 
-    const topCountries = negaraData
-      .sort((a, b) => b[2] - a[2]) // Sort by VisitCount descending
-      .slice(0, 5);
-
-    topCountries.forEach((country) => {
-      const topCountryDiv = document.createElement("div");
-      topCountryDiv.textContent = `${country[1]}: ${country[2]} visits`;
-      topCountryContainer.appendChild(topCountryDiv);
+    dashboardContainer.innerHTML = "";
+  
+    const topCountryContainer = document.createElement("div");
+    topCountryContainer.className = "top-country-container";
+  
+    const title = document.createElement("h3");
+    title.textContent = "Top Country";
+    topCountryContainer.appendChild(title);
+  
+    const countryFlex = document.createElement("div");
+    countryFlex.className = "country-flex";
+  
+    negaraData.slice(0, 5).forEach((country) => {
+      const countryBlock = document.createElement("div");
+      countryBlock.className = "country-block";
+  
+      const count = document.createElement("span");
+      count.className = "country-count";
+      count.textContent = country[2];
+  
+      const name = document.createElement("span");
+      name.className = "country-name";
+      name.textContent = country[1];
+  
+      countryBlock.appendChild(count);
+      countryBlock.appendChild(name);
+      countryFlex.appendChild(countryBlock);
     });
+  
+    topCountryContainer.appendChild(countryFlex);
+    dashboardContainer.appendChild(topCountryContainer);
 
   } catch (error) {
     console.error("Error setting up Travel Trail:", error);
