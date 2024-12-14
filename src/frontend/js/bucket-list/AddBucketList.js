@@ -96,5 +96,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.log("BucketList Data:", result);
   });
 
+  document
+    .getElementById("cancelButton")
+    .addEventListener("click", function () {
+      document.getElementById("bucketListForm").reset();
+      // document.getElementById("preview").style.display = "none";
+      // document.getElementById("dragText").style.display = "block";
+      // document.getElementById("removeImage").style.display = "none";
+      document.getElementById("image").value = "";
+    });
+
   // console.log("Dropdown populated:", dataTempatWisata);
 });
