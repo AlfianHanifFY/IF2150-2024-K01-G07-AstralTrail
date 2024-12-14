@@ -9,8 +9,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             console.error("Error fetching TravelTrail data:", data.error);
             return;}
     
-    const tempatWisataData = data.tempatWisata;
-    const negaraData = data.negara;
+    const tempatWisataData = data.TempatWisata;
+    const negaraData = data.Negara;
 
     // Line Chart
     const lineChartCtx = document.getElementById("lineChart").getContext("2d");
@@ -68,11 +68,19 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const sortedNegaraData = negaraData.sort((a, b) => b[2] - a[2]); // Sort by VisitCount
     const top5List = document.getElementById("top5List");
+
+    const label = document.createElement("label");
+    label.setAttribute("for", "top5List");
+    label.textContent = "Top 5 Countries by Visit Count:";
+
+    top5List.parentElement.insertBefore(label, top5List);
+
     sortedNegaraData.slice(0, 5).forEach((item) => {
-      const li = document.createElement("li");
-      li.textContent = `${item[1]}: ${item[2]} visits`; // NamaNegara: VisitCount
-      top5List.appendChild(li);
+        const li = document.createElement("li");
+        li.textContent = `${item[1]}: ${item[2]} visits`; // NamaNegara: VisitCount
+        top5List.appendChild(li);
     });
+
 
 
     } catch (error) {
