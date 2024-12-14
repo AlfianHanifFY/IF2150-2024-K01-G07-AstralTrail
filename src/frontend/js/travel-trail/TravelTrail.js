@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Line Chart
     const lineChartCtx = document.getElementById("lineChart").getContext("2d");
-    const lineChartLabels = tempatWisataData.map((item) => item[1]);
+    const lineChartLabels = tempatWisataData.map((item) => `${item.Year}-${String(item.Month).padStart(2, '0')}`);
     const lineChartValues = tempatWisataData.map((item) => item[4]);
 
     new Chart(lineChartCtx, {
