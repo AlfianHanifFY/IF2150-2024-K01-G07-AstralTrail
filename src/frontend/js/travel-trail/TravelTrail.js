@@ -1,21 +1,32 @@
+
 import { getData } from "../api.js";
 
+
 document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const data = await getData("http://127.0.0.1:5000/api/showStatisticPage");
 
-    try{
-        const data = await getData("http://127.0.0.1:5000/showStatisticPage")
+    if (!data || data.error) {
+      console.error("Error fetching TravelTrail data:", data.error || "No data");
+      return;
+    }
 
-        if (data.error) {
-            console.error("Error fetching TravelTrail data:", data.error);
-            return;}
-    
-    const tempatWisataData = data.tempatWisata;
-    const negaraData = data.negara;
+    const tempatWisataData = data.TempatWisata || [];
+    const negaraData = data.Negara || [];
+
+    // Log fetched data
+    console.log("Fetched TempatWisata:", tempatWisataData);
+    console.log("Fetched Negara:", negaraData);
+
+    if (!tempatWisataData.length || !negaraData.length) {
+      console.warn("No data available to display.");
+      return;
+    }
 
     // Line Chart
     const lineChartCtx = document.getElementById("lineChart").getContext("2d");
-    const lineChartLabels = tempatWisataData.map((item) => item[1]); // NamaTempatWisata
-    const lineChartValues = tempatWisataData.map((item) => item[4]); // VisitCount
+    const lineChartLabels = tempatWisataData.map((item) => item[1]);
+    const lineChartValues = tempatWisataData.map((item) => item[4]);
 
     new Chart(lineChartCtx, {
       type: "line",
@@ -35,17 +46,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         plugins: {
           tooltip: {
             callbacks: {
-              label: (context) =>
-                `${context.label}: ${context.raw} visits`,
+              label: (context) => `${context.label}: ${context.raw} visits`,
             },
           },
         },
       },
     });
-    
+
+    // Pie Chart
     const pieChartCtx = document.getElementById("pieChart").getContext("2d");
-    const pieChartLabels = negaraData.map((item) => item[1]); // NamaNegara
-    const pieChartValues = negaraData.map((item) => item[2]); // VisitCount
+    const pieChartLabels = negaraData.map((item) => item[1]);
+    const pieChartValues = negaraData.map((item) => item[2]);
 
     new Chart(pieChartCtx, {
       type: "pie",
@@ -66,19 +77,15 @@ document.addEventListener("DOMContentLoaded", async () => {
       },
     });
 
-    const sortedNegaraData = negaraData.sort((a, b) => b[2] - a[2]); // Sort by VisitCount
+    // Top 5 List
+    const sortedNegaraData = negaraData.sort((a, b) => b[2] - a[2]);
     const top5List = document.getElementById("top5List");
-    sortedNegaraData.slice(0, 5).forEach((item) => {
+    sortedNegaraData.slice(0, Math.min(5, sortedNegaraData.length)).forEach((item) => {
       const li = document.createElement("li");
-      li.textContent = `${item[1]}: ${item[2]} visits`; // NamaNegara: VisitCount
+      li.textContent = `${item[1]}: ${item[2]} visits`;
       top5List.appendChild(li);
     });
-
-
-    } catch (error) {
-        console.error("Error setting up Travel Trail:", error);
-    }
-
-
-
+  } catch (error) {
+    console.error("Error setting up Travel Trail:", error);
+  }
 });
